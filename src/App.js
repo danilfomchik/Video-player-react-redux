@@ -1,19 +1,28 @@
+import { Box } from "@chakra-ui/react";
+
+import Navbar from "./app/navbar/Navbar";
+import Header from "./app/header/Header";
+
 function App() {
     return (
         <div className="App">
-            <header className="App-header">
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
+            <Header />
+
+            <main>
+                <Box
+                    display="flex"
+                    justifyContent="space-between"
+                    minHeight="100vh"
+                    bg="#121214"
                 >
-                    Learn React
-                </a>
-            </header>
+                    <Navbar />
+
+                    {/* router */}
+                    <Box color="white" className="main-content">
+                        main
+                    </Box>
+                </Box>
+            </main>
         </div>
     );
 }

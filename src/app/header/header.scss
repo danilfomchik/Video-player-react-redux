@@ -1,0 +1,23 @@
+@import '/src/style/variables.scss';
+
+.header{
+    background: $secondary-bg-color;
+    position: sticky;
+    top: 0;
+
+    &-wrapper{
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 20px;
+    }
+
+    &-logo, &-user{
+        padding: 0px 20px;
+        min-width: 100px;
+    }
+
+    &-search{
+        flex: 0 1 732px;
+        margin: 0px 50px;
+    }
+}
