@@ -1,7 +1,31 @@
 @import '/src/style/variables.scss';
 
 .nav-bar{
-    color: #ffffff;
-    min-width: 200px;
+    // position: sticky;
+    // top: 0;
+    // left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    color: $nav-text-color;
+    // min-width: 50px;
+    padding: 30px 20px 0px;
     background: $main-bg-color;
+
+    &__item{
+        border-radius: 15px;
+        padding: 10px 15px;
+        // margin: 10px 0px;
+        cursor: pointer;
+
+        &:hover{
+            background: #68686829;
+        }
+
+        svg{
+            margin: 0 auto;
+        }
+    }
 }

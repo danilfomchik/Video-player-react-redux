@@ -1,7 +1,11 @@
 import { Box } from "@chakra-ui/react";
+import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./app/navbar/Navbar";
 import Header from "./app/header/Header";
+
+// make lazy load for pages
+import HomePage from "./pages/home-page/HomePage";
 
 function App() {
     return (
@@ -17,10 +21,35 @@ function App() {
                 >
                     <Navbar />
 
-                    {/* router */}
-                    <Box color="white" className="main-content">
-                        main
-                    </Box>
+                    {/* <Suspense fallback={<Spinner />}> */}
+                    <Routes>
+                        <Route path="/" element={<HomePage />} />
+                        <Route
+                            path="library"
+                            element={
+                                <Box color="white" className="main-content">
+                                    library
+                                </Box>
+                            }
+                        />
+                        <Route
+                            path="/shorts"
+                            element={
+                                <Box color="white" className="main-content">
+                                    shorts
+                                </Box>
+                            }
+                        />
+                        <Route
+                            path="*"
+                            element={
+                                <Box color="white" className="main-content">
+                                    error
+                                </Box>
+                            }
+                        />
+                    </Routes>
+                    {/* </Suspense> */}
                 </Box>
             </main>
         </div>
