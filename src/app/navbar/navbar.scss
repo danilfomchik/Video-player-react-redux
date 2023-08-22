@@ -1,31 +1,36 @@
 @import '/src/style/variables.scss';
 
 .nav-bar{
-    // position: sticky;
-    // top: 0;
-    // left: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     justify-content: flex-start;
     flex-wrap: nowrap;
-    color: $nav-text-color;
-    // min-width: 50px;
+
     padding: 30px 20px 0px;
     background: $main-bg-color;
 
     &__item{
+        text-align: center;
+        color: $nav-item-color;
         border-radius: 15px;
         padding: 10px 15px;
-        // margin: 10px 0px;
         cursor: pointer;
+
+        &_active{
+            background: #68686829;
+            color: $nav-active-item-color;
+        }
 
         &:hover{
             background: #68686829;
         }
 
         svg{
-            margin: 0 auto;
+            color: $nav-item-color;
+            fill: currentColor;
+            stroke: none;
+            margin: 0 auto 5px;
         }
     }
 }

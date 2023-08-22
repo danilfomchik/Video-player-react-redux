@@ -8,8 +8,8 @@ const Header = () => {
     return (
         <>
             <header className="header">
-                <Box className="header-wrapper" data-role="header">
-                    <Box className="header-logo">
+                <Box className="header__wrapper" data-role="header">
+                    <Box className="header__logo">
                         <Image
                             boxSize="35px"
                             fit="contain"
@@ -17,7 +17,7 @@ const Header = () => {
                             alt="Logo"
                         />
                     </Box>
-                    <Box className="header-search">
+                    <Box className="header__search">
                         <Input
                             variant="flushed"
                             placeholder="Enter a request"
@@ -25,7 +25,7 @@ const Header = () => {
                             color="white"
                         />
                     </Box>
-                    <Box className="header-user">
+                    <Box className="header__user">
                         <Avatar bg="#E11D48" boxSize="35px" />
                     </Box>
                 </Box>

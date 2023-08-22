@@ -5,19 +5,19 @@
     position: sticky;
     top: 0;
 
-    &-wrapper{
+    &__wrapper{
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 16px 20px;
     }
 
-    &-logo, &-user{
+    &__logo, &__user{
         padding: 0px 20px;
         min-width: 100px;
     }
 
-    &-search{
+    &__search{
         flex: 0 1 732px;
         margin: 0px 50px;
     }

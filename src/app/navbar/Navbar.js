@@ -1,35 +1,44 @@
 import { Box } from "@chakra-ui/react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useMatch, useLocation } from "react-router-dom";
 
 import navBarItems from "./navBarItems";
 
 import "./navbar.scss";
+import { useState } from "react";
 
 const Navbar = () => {
+    const location = useLocation();
+
+    const setActiveClass = ({ isActive }) =>
+        isActive ? "nav-bar__item nav-bar__item_active" : "nav-bar__item";
+
     return (
         <Box className="nav-bar">
-            {navBarItems.map(({ name, svgPath, to }) => (
-                <NavLink to={to}>
-                    <Box className="nav-bar__item">
-                        <c3-icon
-                            style={{
-                                color: "#ffffff",
-                                fill: "currentColor",
-                                stroke: "none",
-                            }}
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                height="24"
-                                width="24"
-                            >
-                                <g>
-                                    <path d={svgPath}></path>
-                                </g>
-                            </svg>
-                        </c3-icon>
-                        <p>{name}</p>
-                    </Box>
+            {navBarItems.map(({ name, svgPath, onActivePath, to }, index) => (
+                <NavLink end key={index} to={to} className={setActiveClass}>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="24"
+                        width="24"
+                        style={
+                            location.pathname === to
+                                ? {
+                                      color: "#ffffff",
+                                  }
+                                : {}
+                        }
+                    >
+                        <g>
+                            <path
+                                d={
+                                    location.pathname === to
+                                        ? onActivePath
+                                        : svgPath
+                                }
+                            ></path>
+                        </g>
+                    </svg>
+                    <p>{name}</p>
                 </NavLink>
             ))}
         </Box>
