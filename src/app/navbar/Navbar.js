@@ -1,10 +1,9 @@
 import { Box } from "@chakra-ui/react";
-import { Link, NavLink, useMatch, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 import navBarItems from "./navBarItems";
 
 import "./navbar.scss";
-import { useState } from "react";
 
 const Navbar = () => {
     const location = useLocation();

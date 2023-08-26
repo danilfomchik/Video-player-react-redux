@@ -1,4 +1,8 @@
+@import '/src/style/variables.scss';
+
 .main-content{
+    padding-bottom: $header-height;
+    width: 100%;
     max-height: 100vh;
     overflow-y: auto;
 }

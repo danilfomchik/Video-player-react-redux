@@ -6,6 +6,7 @@
     top: 0;
 
     &__wrapper{
+        max-height: $header-height;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -17,8 +18,13 @@
         min-width: 100px;
     }
 
+    &__user{
+        // margin: 0 auto;
+        text-align: right;
+    }
+
     &__search{
         flex: 0 1 732px;
-        margin: 0px 50px;
+        // margin: 0px 50px;
     }
 }

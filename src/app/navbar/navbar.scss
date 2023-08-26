@@ -18,12 +18,12 @@
         cursor: pointer;
 
         &_active{
-            background: #68686829;
+            background: $active-item-bg;
             color: $nav-active-item-color;
         }
 
         &:hover{
-            background: #68686829;
+            background: $active-item-bg;
         }
 
         svg{
