@@ -6,7 +6,8 @@ import { BASE_URL, API_KEY } from "../../utils/constants";
 
 const initialState = {
     videos: [],
-    issuesLoadingStatus: "idle",
+    videosLoadingStatus: "idle",
+    nextPageToken: "",
 };
 
 export const fetchVideos = createAsyncThunk(
@@ -33,23 +34,34 @@ export const fetchVideos = createAsyncThunk(
 const videosSlice = createSlice({
     name: "videos",
     initialState,
-    reducers: {},
+    reducers: {
+        // loadMoreVideos: (state, action) => {
+        //     state.videos += action.payload;
+        // },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchVideos.pending, (state) => {
-                state.issuesLoadingStatus = "loading";
+                state.videosLoadingStatus = "loading";
             })
             .addCase(fetchVideos.fulfilled, (state, action) => {
-                state.issuesLoadingStatus = "idle";
-                state.videos = action.payload.items;
+                // console.log(action.payload.items);
+
+                state.videosLoadingStatus = "idle";
+                state.nextPageToken = action.payload.nextPageToken;
+
+                state.videos = [...state.videos, ...action.payload.items];
+                // state.videos.push(...action.payload.items);
             })
             .addCase(fetchVideos.rejected, (state) => {
-                state.issuesLoadingStatus = "error";
+                state.videosLoadingStatus = "error";
             })
             .addDefaultCase(() => {});
     },
 });
 
-const { reducer } = videosSlice;
+const { reducer, actions } = videosSlice;
+
+export const { loadMoreVideos } = actions;
 
 export default reducer;

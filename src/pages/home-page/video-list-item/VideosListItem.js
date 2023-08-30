@@ -1,12 +1,14 @@
-import moment from "moment";
+import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 import { Box, Image, Flex, Heading, Text, Avatar } from "@chakra-ui/react";
+import moment from "moment";
+
+import { loadMoreVideos } from "../videosSlice";
 
 import httpRequest from "../../../utils/httpRequest";
-
 import { BASE_URL, API_KEY } from "../../../utils/constants";
 
 import "./video-list-item.scss";
-import { useEffect, useState } from "react";
 
 const VideosListItem = ({ video }) => {
     const {
@@ -23,7 +25,6 @@ const VideosListItem = ({ video }) => {
     } = video;
 
     const [channelIcon, setChannelIcon] = useState("");
-
     const { request } = httpRequest();
 
     // const _videoId = id?.videoId || contentDetails?.videoId || id;
@@ -46,7 +47,7 @@ const VideosListItem = ({ video }) => {
     }, []);
 
     return (
-        <Box className="videos-list__item">
+        <Box className="videos-list__item" id={id}>
             <Box className="videos-list__item-preview">
                 <Image
                     className="videos-list__item-thumbnail"
@@ -62,8 +63,8 @@ const VideosListItem = ({ video }) => {
                     <Avatar
                         bg="#E11D48"
                         boxSize="35px"
-                        name="Dan Abrahmov"
-                        src={channelIcon}
+                        name={channelTitle}
+                        src={channelIcon ?? ""}
                     />
                 </Box>
                 <Box className="videos-list__item-info">

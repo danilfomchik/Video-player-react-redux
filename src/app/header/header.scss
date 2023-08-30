@@ -1,11 +1,13 @@
 @import '/src/style/variables.scss';
 
 .header{
-    background: $secondary-bg-color;
-    position: sticky;
-    top: 0;
-
     &__wrapper{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: #202024;
+        z-index: 100;
         max-height: $header-height;
         display: flex;
         justify-content: space-between;

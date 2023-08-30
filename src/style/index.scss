@@ -1,5 +1,21 @@
 @import url('./reset.scss');
+@import '/src/style/variables.scss';
 
-body{
-    overflow: hidden;
+// body{
+//     overflow: hidden;
+// }
+
+body::-webkit-scrollbar {
+    width: 7px;
+}
+body::-webkit-scrollbar-track {
+    background: $main-bg-color
+}
+body::-webkit-scrollbar-thumb {
+    background: #ffffff75;
+    border-radius: 10px;
+
+    &:hover{
+        background: #ffffffe3;
+    }
 }
