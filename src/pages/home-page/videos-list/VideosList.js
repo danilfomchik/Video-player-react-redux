@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import useIntersectionObserver from "../../../hooks/useIntersectionObserver";
 import InfiniteScroll from "react-infinite-scroll-component";
-
-import { Box } from "@chakra-ui/react";
+import ContentLoader, { Facebook } from "react-content-loader";
 
 import VideosListItem from "../video-list-item/VideosListItem";
+import Portal from "../../../components/Portal";
+import StatusMessage from "../../../components/StatusMessage";
 
 import { fetchVideos } from "../videosSlice";
 
@@ -23,22 +22,26 @@ const VideosList = () => {
 
     const dispatch = useDispatch();
 
-    // --------------
-    // style
-    // if (videosLoadingStatus === "loading") {
-    //     return <h1>Loading</h1>;
-    // } else if (videosLoadingStatus === "error") {
-    //     return <h1>error</h1>;
-    // }
-    // --------------
-
     useEffect(() => {
         dispatch(fetchVideos({ nextPageToken, filterParam }));
     }, []);
 
     return (
         <>
-            {/* <Box className="videos-list"> */}
+            {/* {nextPageToken === "" && (
+                <ContentLoader
+                    speed={2}
+                    viewBox="0 0 400 160"
+                    backgroundColor="#909192"
+                    foregroundColor="#ecebeb"
+                    width={400}
+                    height={160}
+                >
+                    <rect x="0" y="0" rx="5" ry="5" width="70" height="70" />
+                    <rect x="80" y="17" rx="4" ry="4" width="300" height="13" />
+                    <rect x="80" y="40" rx="3" ry="3" width="250" height="10" />
+                </ContentLoader>
+            )} */}
             <InfiniteScroll
                 className="videos-list"
                 dataLength={videos.length}
@@ -47,17 +50,16 @@ const VideosList = () => {
                 }
                 hasMore={nextPageToken ? true : false}
                 scrollThreshold={0.9}
-                // loader={
-                //     <div className="loader" key={0}>
-                //         Loading ...
-                //     </div>
-                // }
             >
                 {videos.map((video, index) => (
                     <VideosListItem key={index} video={video} />
                 ))}
             </InfiniteScroll>
-            {/* </Box> */}
+            {videosLoadingStatus !== "idle" && (
+                <Portal>
+                    <StatusMessage status={videosLoadingStatus} />
+                </Portal>
+            )}
         </>
     );
 };

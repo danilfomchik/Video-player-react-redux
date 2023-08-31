@@ -6,7 +6,8 @@
         top: 0;
         left: 0;
         width: 100%;
-        background: #202024;
+        background: $main-bg-color;
+        border-bottom: 2px solid $secondary-bg-color;
         z-index: 100;
         max-height: $header-height;
         display: flex;
