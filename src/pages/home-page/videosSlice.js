@@ -6,7 +6,7 @@ import { BASE_URL, API_KEY } from "../../utils/constants";
 
 const initialState = {
     videos: [],
-    videosLoadingStatus: "idle",
+    videosFetchStatus: "idle",
     nextPageToken: "",
 };
 
@@ -42,19 +42,19 @@ const videosSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchVideos.pending, (state) => {
-                state.videosLoadingStatus = "loading";
+                state.videosFetchStatus = "loading";
             })
             .addCase(fetchVideos.fulfilled, (state, action) => {
                 // console.log(action.payload.items);
 
-                state.videosLoadingStatus = "idle";
+                state.videosFetchStatus = "idle";
                 state.nextPageToken = action.payload.nextPageToken;
 
                 state.videos = [...state.videos, ...action.payload.items];
                 // state.videos.push(...action.payload.items);
             })
             .addCase(fetchVideos.rejected, (state) => {
-                state.videosLoadingStatus = "error";
+                state.videosFetchStatus = "error";
             })
             .addDefaultCase(() => {});
     },
