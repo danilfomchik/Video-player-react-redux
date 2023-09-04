@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -7,7 +7,7 @@ import Portal from "../../../components/Portal";
 import StatusMessage from "../../../components/StatusMessage";
 import VideoSkeleton from "../../../components/VideoSkeleton";
 
-import { fetchVideos } from "../videosSlice";
+import { fetchVideos } from "./videosSlice";
 
 import "./videos-list.scss";
 
@@ -23,7 +23,11 @@ const VideosList = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        // const firstFetchTimeout = setTimeout(() => {
         dispatch(fetchVideos({ nextPageToken, filterParam }));
+        // }, 1000);
+
+        // return () => clearTimeout(firstFetchTimeout);
     }, []);
 
     const renderSkeletonList = () => {
@@ -36,13 +40,16 @@ const VideosList = () => {
         return skeletonList;
     };
 
-    const renderVideosList = (videos) => {
-        return videos.map((video, index) => (
-            <VideosListItem key={index} video={video} />
-        ));
-    };
+    const renderVideosList = useCallback(
+        (videos) => {
+            return videos.map((video, index) => (
+                <VideosListItem key={index} video={video} />
+            ));
+        },
+        [nextPageToken]
+    );
 
-    const skeletonList = renderSkeletonList();
+    // const skeletonList = renderSkeletonList();
     const videosList = renderVideosList(videos);
 
     return (
@@ -56,7 +63,9 @@ const VideosList = () => {
                 hasMore={nextPageToken ? true : false}
                 scrollThreshold={0.9}
             >
-                {nextPageToken === "" ? skeletonList : videosList}
+                {nextPageToken === "" && videos.length < 8
+                    ? renderSkeletonList()
+                    : videosList}
             </InfiniteScroll>
             {videosFetchStatus !== "idle" && (
                 <Portal>

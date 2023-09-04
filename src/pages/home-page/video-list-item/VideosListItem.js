@@ -3,7 +3,7 @@ import { useInView } from "react-intersection-observer";
 import { Box, Image, Flex, Heading, Text, Avatar } from "@chakra-ui/react";
 import moment from "moment";
 
-import { loadMoreVideos } from "../videosSlice";
+import { loadMoreVideos } from "../videos-list/videosSlice";
 
 import httpRequest from "../../../utils/httpRequest";
 import { BASE_URL, API_KEY } from "../../../utils/constants";
