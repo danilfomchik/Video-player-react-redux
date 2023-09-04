@@ -12,10 +12,10 @@ const initialState = {
 
 export const fetchVideos = createAsyncThunk(
     "videos/fetchVideos",
-    ({ nextPageToken = "", filterParam }) => {
+    ({ nextPageToken = "", currentCategory }) => {
         const { request } = httpRequest();
 
-        if (filterParam === "All") {
+        if (currentCategory === "all") {
             return request(
                 `${BASE_URL}/videos?part=snippet,contentDetails,statistics&maxResults=24&chart=mostPopular&regionCode=UA&pageToken=${
                     nextPageToken ?? ""
@@ -24,7 +24,7 @@ export const fetchVideos = createAsyncThunk(
         } else {
             // using for filter by query and by category
             return request(
-                `${BASE_URL}/search?part=snippet&maxResults=24&type=video&q=${filterParam}&pageToken=${
+                `${BASE_URL}/search?part=snippet&maxResults=24&type=video&q=${currentCategory}&pageToken=${
                     nextPageToken ?? ""
                 }&videoDuration=medium&key=${API_KEY}`
             );
@@ -51,8 +51,8 @@ const videosSlice = createSlice({
                 state.videosFetchStatus = "idle";
                 state.nextPageToken = action.payload.nextPageToken;
 
-                state.videos = [...state.videos, ...action.payload.items];
-                // state.videos.push(...action.payload.items);
+                state.videos = action.payload.items;
+                // state.videos = [...state.videos, ...action.payload.items];
             })
             .addCase(fetchVideos.rejected, (state) => {
                 state.videosFetchStatus = "error";

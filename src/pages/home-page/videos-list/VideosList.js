@@ -12,23 +12,26 @@ import { fetchVideos } from "./videosSlice";
 import "./videos-list.scss";
 
 const VideosList = () => {
-    const [filterParam, setFilterParam] = useState("All");
+    // const [filterParam, setFilterParam] = useState("All");
 
     const videos = useSelector((state) => state.videos.videos);
     const videosFetchStatus = useSelector(
         (state) => state.videos.videosFetchStatus
     );
     const nextPageToken = useSelector((state) => state.videos.nextPageToken);
+    const currentCategory = useSelector(
+        (state) => state.categories.currentCategory
+    );
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         // const firstFetchTimeout = setTimeout(() => {
-        dispatch(fetchVideos({ nextPageToken, filterParam }));
+        dispatch(fetchVideos({ nextPageToken, currentCategory }));
         // }, 1000);
 
         // return () => clearTimeout(firstFetchTimeout);
-    }, []);
+    }, [currentCategory]);
 
     const renderSkeletonList = () => {
         let skeletonList = [];
@@ -42,6 +45,8 @@ const VideosList = () => {
 
     const renderVideosList = useCallback(
         (videos) => {
+            console.log(videos);
+
             return videos.map((video, index) => (
                 <VideosListItem key={index} video={video} />
             ));
@@ -54,7 +59,7 @@ const VideosList = () => {
 
     return (
         <>
-            <InfiniteScroll
+            {/* <InfiniteScroll
                 className="videos-list"
                 dataLength={videos.length}
                 next={() =>
@@ -62,11 +67,13 @@ const VideosList = () => {
                 }
                 hasMore={nextPageToken ? true : false}
                 scrollThreshold={0.9}
-            >
+            > */}
+            <div className="videos-list">
                 {nextPageToken === "" && videos.length < 8
                     ? renderSkeletonList()
                     : videosList}
-            </InfiniteScroll>
+            </div>
+            {/* </InfiniteScroll> */}
             {videosFetchStatus !== "idle" && (
                 <Portal>
                     <StatusMessage status={videosFetchStatus} />

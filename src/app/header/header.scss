@@ -6,6 +6,7 @@
         top: 0;
         left: 0;
         width: 100%;
+        // width: calc(100% - $navbar-width);
         background: $main-bg-color;
         border-bottom: 2px solid $secondary-bg-color;
         z-index: 100;

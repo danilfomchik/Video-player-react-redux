@@ -1,0 +1,36 @@
+@import '/src/style/variables.scss';
+
+.categories-filter__wrapper{
+    width: calc(100vw - ($navbar-width + 20px));
+    min-width: 250px;
+}
+
+.categories-filter__inner{
+    width: 100%;
+    overflow-x: auto;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.categories-filter__item{
+    padding: 5px 20px;
+    margin: 0px 6px;
+    background-color: $active-item-bg;
+    color: #ffffff;
+    border-radius: 4px;
+    cursor: pointer;
+    min-width: max-content;
+
+    &.active{
+        background-color: #ffffff;
+        color: #6B7280;
+    }
+
+    &:not(.active):hover{
+        background-color: #6B7280;
+    }
+}

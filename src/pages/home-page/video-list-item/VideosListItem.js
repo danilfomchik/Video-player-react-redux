@@ -24,6 +24,8 @@ const VideosListItem = ({ video }) => {
         statistics: { viewCount },
     } = video;
 
+    // console.log(video);
+
     const [channelIcon, setChannelIcon] = useState("");
     const { request } = httpRequest();
 
