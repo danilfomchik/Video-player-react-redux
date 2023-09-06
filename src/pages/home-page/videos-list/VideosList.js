@@ -36,7 +36,7 @@ const VideosList = () => {
     const renderSkeletonList = () => {
         let skeletonList = [];
 
-        for (let i = 0; i <= 8; i++) {
+        for (let i = 0; i <= 24; i++) {
             skeletonList[i] = <VideoSkeleton key={i} />;
         }
 
@@ -45,8 +45,6 @@ const VideosList = () => {
 
     const renderVideosList = useCallback(
         (videos) => {
-            console.log(videos);
-
             return videos.map((video, index) => (
                 <VideosListItem key={index} video={video} />
             ));
@@ -59,21 +57,21 @@ const VideosList = () => {
 
     return (
         <>
-            {/* <InfiniteScroll
+            <InfiniteScroll
                 className="videos-list"
                 dataLength={videos.length}
                 next={() =>
-                    dispatch(fetchVideos({ nextPageToken, filterParam }))
+                    dispatch(fetchVideos({ nextPageToken, currentCategory }))
                 }
                 hasMore={nextPageToken ? true : false}
                 scrollThreshold={0.9}
-            > */}
-            <div className="videos-list">
-                {nextPageToken === "" && videos.length < 8
-                    ? renderSkeletonList()
-                    : videosList}
-            </div>
-            {/* </InfiniteScroll> */}
+            >
+                <div className="videos-list">
+                    {nextPageToken === "" && videos.length < 8
+                        ? renderSkeletonList()
+                        : videosList}
+                </div>
+            </InfiniteScroll>
             {videosFetchStatus !== "idle" && (
                 <Portal>
                     <StatusMessage status={videosFetchStatus} />

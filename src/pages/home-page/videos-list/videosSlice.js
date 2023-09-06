@@ -24,7 +24,7 @@ export const fetchVideos = createAsyncThunk(
         } else {
             // using for filter by query and by category
             return request(
-                `${BASE_URL}/search?part=snippet&maxResults=24&type=video&q=${currentCategory}&pageToken=${
+                `${BASE_URL}/search?part=snippet&maxResults=24&type=video&chart=mostPopular&regionCode=UA&q=${currentCategory}&pageToken=${
                     nextPageToken ?? ""
                 }&videoDuration=medium&key=${API_KEY}`
             );
@@ -36,9 +36,10 @@ const videosSlice = createSlice({
     name: "videos",
     initialState,
     reducers: {
-        // loadMoreVideos: (state, action) => {
-        //     state.videos += action.payload;
-        // },
+        resetVideosList: (state, action) => {
+            state.videos = [];
+            state.nextPageToken = "";
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -46,13 +47,10 @@ const videosSlice = createSlice({
                 state.videosFetchStatus = "loading";
             })
             .addCase(fetchVideos.fulfilled, (state, action) => {
-                // console.log(action.payload.items);
-
                 state.videosFetchStatus = "idle";
                 state.nextPageToken = action.payload.nextPageToken;
 
-                state.videos = action.payload.items;
-                // state.videos = [...state.videos, ...action.payload.items];
+                state.videos = [...state.videos, ...action.payload.items];
             })
             .addCase(fetchVideos.rejected, (state) => {
                 state.videosFetchStatus = "error";
@@ -63,6 +61,6 @@ const videosSlice = createSlice({
 
 const { reducer, actions } = videosSlice;
 
-export const { loadMoreVideos } = actions;
+export const { resetVideosList } = actions;
 
 export default reducer;

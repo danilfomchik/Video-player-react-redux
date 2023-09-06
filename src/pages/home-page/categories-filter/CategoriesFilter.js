@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import { resetVideosList } from "../videos-list/videosSlice";
 import { fetchCategories, changeCurrentCategory } from "./categoriesSlice";
 
 import "./categories-filter.scss";
@@ -16,6 +17,11 @@ const CategoriesFilter = () => {
         dispatch(fetchCategories());
     }, []);
 
+    const handleCategoryChange = (param) => {
+        dispatch(resetVideosList());
+        dispatch(changeCurrentCategory(param));
+    };
+
     return (
         <div className="categories-filter__wrapper">
             <div className="categories-filter__inner">
@@ -23,7 +29,7 @@ const CategoriesFilter = () => {
                     className={`categories-filter__item${
                         currentCategory === "all" ? " active" : ""
                     }`}
-                    onClick={() => dispatch(changeCurrentCategory("all"))}
+                    onClick={() => handleCategoryChange("all")}
                 >
                     <span>All</span>
                 </div>
@@ -42,9 +48,7 @@ const CategoriesFilter = () => {
                                     : ""
                             }`}
                             onClick={() =>
-                                dispatch(
-                                    changeCurrentCategory(title.toLowerCase())
-                                )
+                                handleCategoryChange(title.toLowerCase())
                             }
                         >
                             <span>{title}</span>

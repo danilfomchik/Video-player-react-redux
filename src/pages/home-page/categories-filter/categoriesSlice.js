@@ -22,7 +22,7 @@ export const fetchCategories = createAsyncThunk(
 );
 
 const categoriesSlice = createSlice({
-    name: "videos",
+    name: "categories",
     initialState,
     reducers: {
         changeCurrentCategory: (state, action) => {

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
 import { Box, Image, Flex, Heading, Text, Avatar } from "@chakra-ui/react";
 import moment from "moment";
@@ -21,18 +22,20 @@ const VideosListItem = ({ video }) => {
             thumbnails: { medium },
         },
         contentDetails,
-        statistics: { viewCount },
+        // statistics: { viewCount },
     } = video;
 
-    // console.log(video);
+    const currentCategory = useSelector(
+        (state) => state.categories.currentCategory
+    );
 
     const [channelIcon, setChannelIcon] = useState("");
     const { request } = httpRequest();
 
-    // const _videoId = id?.videoId || contentDetails?.videoId || id;
+    const _videoId = id?.videoId || contentDetails?.videoId || id;
 
-    const seconds = moment.duration(contentDetails.duration).asSeconds();
-    const _duration = moment.utc(seconds * 1000).format("mm:ss");
+    // const seconds = moment.duration(contentDetails.duration).asSeconds();
+    // const _duration = moment.utc(seconds * 1000).format("mm:ss");
 
     const get_channel_icon = async () => {
         const response = await request(
@@ -45,20 +48,21 @@ const VideosListItem = ({ video }) => {
     };
 
     useEffect(() => {
+        // setChannelIcon("");
         get_channel_icon();
-    }, []);
+    }, [currentCategory]);
 
     return (
-        <Box className="videos-list__item" id={id}>
+        <Box className="videos-list__item" id={_videoId}>
             <Box className="videos-list__item-preview">
                 <Image
                     className="videos-list__item-thumbnail"
                     src={medium.url}
                     alt={title}
                 />
-                <Text className="videos-list__item-duration" fontSize="sm">
+                {/* <Text className="videos-list__item-duration" fontSize="sm">
                     {_duration}
-                </Text>
+                </Text> */}
             </Box>
             <Flex padding="16px 5px 0px" style={{ gap: "0.5rem" }}>
                 <Box id={channelId} className="videos-list__item-channel">
@@ -84,9 +88,9 @@ const VideosListItem = ({ video }) => {
                         {channelTitle}
                     </Text>
                     <Text fontSize="sm">
-                        {Intl.NumberFormat("en", {
+                        {/* {Intl.NumberFormat("en", {
                             notation: "compact",
-                        }).format(viewCount)}{" "}
+                        }).format(viewCount)}{" "} */}
                         views • {moment(publishedAt).fromNow()}
                     </Text>
                 </Box>
