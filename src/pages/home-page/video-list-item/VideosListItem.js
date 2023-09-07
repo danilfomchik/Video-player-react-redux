@@ -25,19 +25,25 @@ const VideosListItem = ({ video }) => {
         // statistics: { viewCount },
     } = video;
 
+    // console.log(video);
+
     const currentCategory = useSelector(
         (state) => state.categories.currentCategory
     );
 
     const [channelIcon, setChannelIcon] = useState("");
+    const [videoStatistics, setVideoStatistics] = useState({});
+
     const { request } = httpRequest();
 
     const _videoId = id?.videoId || contentDetails?.videoId || id;
 
-    // const seconds = moment.duration(contentDetails.duration).asSeconds();
-    // const _duration = moment.utc(seconds * 1000).format("mm:ss");
+    const seconds = moment
+        .duration(videoStatistics?.contentDetails?.duration)
+        .asSeconds();
+    const _duration = moment.utc(seconds * 1000).format("mm:ss");
 
-    const get_channel_icon = async () => {
+    const getChannelIcon = async () => {
         const response = await request(
             BASE_URL + `/channels?part=snippet&id=${channelId}&key=${API_KEY}`
         );
@@ -47,9 +53,18 @@ const VideosListItem = ({ video }) => {
         );
     };
 
+    const getVideoStatistics = async (videoId) => {
+        const response = await request(
+            BASE_URL +
+                `/videos?part=snippet,contentDetails,statistics&id=${videoId}&key=${API_KEY}`
+        );
+
+        setVideoStatistics(response.items[0]);
+    };
+
     useEffect(() => {
-        // setChannelIcon("");
-        get_channel_icon();
+        getVideoStatistics(_videoId);
+        getChannelIcon();
     }, [currentCategory]);
 
     return (
@@ -60,9 +75,11 @@ const VideosListItem = ({ video }) => {
                     src={medium.url}
                     alt={title}
                 />
-                {/* <Text className="videos-list__item-duration" fontSize="sm">
-                    {_duration}
-                </Text> */}
+                {videoStatistics.contentDetails && (
+                    <Text className="videos-list__item-duration" fontSize="sm">
+                        {_duration}
+                    </Text>
+                )}
             </Box>
             <Flex padding="16px 5px 0px" style={{ gap: "0.5rem" }}>
                 <Box id={channelId} className="videos-list__item-channel">
@@ -88,10 +105,17 @@ const VideosListItem = ({ video }) => {
                         {channelTitle}
                     </Text>
                     <Text fontSize="sm">
-                        {/* {Intl.NumberFormat("en", {
-                            notation: "compact",
-                        }).format(viewCount)}{" "} */}
-                        views • {moment(publishedAt).fromNow()}
+                        <span>
+                            {Intl.NumberFormat("en", {
+                                notation: "compact",
+                            }).format(
+                                videoStatistics.statistics
+                                    ? videoStatistics?.statistics?.viewCount
+                                    : ""
+                            )}{" "}
+                            views
+                        </span>{" "}
+                        • <span>{moment(publishedAt).fromNow()}</span>
                     </Text>
                 </Box>
             </Flex>

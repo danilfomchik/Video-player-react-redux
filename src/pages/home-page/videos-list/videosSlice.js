@@ -24,7 +24,7 @@ export const fetchVideos = createAsyncThunk(
         } else {
             // using for filter by query and by category
             return request(
-                `${BASE_URL}/search?part=snippet&maxResults=24&type=video&chart=mostPopular&regionCode=UA&q=${currentCategory}&pageToken=${
+                `${BASE_URL}/search?part=snippet&maxResults=24&type=video&regionCode=UA&q=${currentCategory}&pageToken=${
                     nextPageToken ?? ""
                 }&videoDuration=medium&key=${API_KEY}`
             );
