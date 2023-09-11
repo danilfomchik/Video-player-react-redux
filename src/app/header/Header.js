@@ -1,4 +1,5 @@
 import { Avatar, Input, Image, Box } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 import logo from "../../assets/icon.png";
 
@@ -10,12 +11,14 @@ const Header = () => {
             <header className="header">
                 <Box className="header__wrapper" data-role="header">
                     <Box className="header__logo">
-                        <Image
-                            boxSize="35px"
-                            fit="contain"
-                            src={logo}
-                            alt="Logo"
-                        />
+                        <Link to="/">
+                            <Image
+                                boxSize="35px"
+                                fit="contain"
+                                src={logo}
+                                alt="Logo"
+                            />
+                        </Link>
                     </Box>
                     <Box className="header__search">
                         <Input

@@ -18,13 +18,19 @@
     border-radius: 10px;
 }
 
-body::-webkit-scrollbar {
+* {
+    scrollbar-width: 7px;
+    scrollbar-color: $main-bg-color;
+}
+
+*::-webkit-scrollbar {
     width: 7px;
+    // height: 7px;
 }
-body::-webkit-scrollbar-track {
-    background: $main-bg-color
+*::-webkit-scrollbar-track {
+    background: $main-bg-color;
 }
-body::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
     background: #ffffff75;
     border-radius: 10px;
 

@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import useScrollOnDrag from "react-scroll-ondrag";
 
 import { resetVideosList } from "../videos-list/videosSlice";
 import { fetchCategories, changeCurrentCategory } from "./categoriesSlice";
@@ -14,7 +15,11 @@ const CategoriesFilter = () => {
     );
 
     useEffect(() => {
-        dispatch(fetchCategories());
+        if (categories.length === 0) {
+            dispatch(fetchCategories());
+        }
+
+        return () => dispatch(changeCurrentCategory("all"));
     }, []);
 
     const handleCategoryChange = (param) => {
@@ -22,9 +27,35 @@ const CategoriesFilter = () => {
         dispatch(changeCurrentCategory(param));
     };
 
+    const containerRef = useRef(null);
+    const { events } = useScrollOnDrag(containerRef);
+
+    // const onDragScroll = (e) => {
+    //     console.log(e.target);
+
+    //     e.target.addEventListener("mousemove", () => {
+    //         console.log("move");
+    //     });
+
+    //     return e.target.removeEventListener("mousemove", () => {
+    //         console.log("move");
+    //     });
+    // };
+
+    // два события onMouseDown и onMouseUp. при onMouseDown запускается mousemove, а при onMouseUp удаляется этот слушатель.
+    // реализовать прокрутку нативным js
+    // сделать блок с фильтрами фиксированным
+
     return (
         <div className="categories-filter__wrapper">
-            <div className="categories-filter__inner">
+            <div
+                className="categories-filter__inner"
+                // style={{ transform: "translateX(0px)" }}
+                ref={containerRef}
+                {...events}
+                // onMouseMove={() => console.log("move")}
+                // onMouseDown={(e) => onDragScroll(e)}
+            >
                 <div
                     className={`categories-filter__item${
                         currentCategory === "all" ? " active" : ""

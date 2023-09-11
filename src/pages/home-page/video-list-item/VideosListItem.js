@@ -76,7 +76,7 @@ const VideosListItem = ({ video }) => {
                     alt={title}
                 />
                 {videoStatistics.contentDetails && (
-                    <Text className="videos-list__item-duration" fontSize="sm">
+                    <Text className="videos-list__item-duration">
                         {_duration}
                     </Text>
                 )}

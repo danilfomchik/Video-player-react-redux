@@ -28,9 +28,10 @@
 
     &-duration{
         position: absolute;
-        right: 8px;
-        bottom: 8px;
-        background: #ffffff38;
+        right: 4px;
+        bottom: 4px;
+        font-size: 12px;
+        background: rgba(0, 0, 0, 0.8);
         padding: 2px 5px;
         border-radius: 5px;
     }

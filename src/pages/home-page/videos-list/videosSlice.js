@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import httpRequest from "../../../utils/httpRequest";
 
-import { BASE_URL, API_KEY } from "../../../utils/constants";
+import { BASE_URL, API_KEY, videosCount } from "../../../utils/constants";
 
 const initialState = {
     videos: [],
@@ -17,14 +17,14 @@ export const fetchVideos = createAsyncThunk(
 
         if (currentCategory === "all") {
             return request(
-                `${BASE_URL}/videos?part=snippet,contentDetails,statistics&maxResults=24&chart=mostPopular&regionCode=UA&pageToken=${
+                `${BASE_URL}/videos?part=snippet,contentDetails,statistics&maxResults=${videosCount}&chart=mostPopular&regionCode=UA&pageToken=${
                     nextPageToken ?? ""
                 }&videoDuration=medium&key=${API_KEY}`
             );
         } else {
             // using for filter by query and by category
             return request(
-                `${BASE_URL}/search?part=snippet&maxResults=24&type=video&regionCode=UA&q=${currentCategory}&pageToken=${
+                `${BASE_URL}/search?part=snippet&maxResults=${videosCount}&type=video&regionCode=UA&q=${currentCategory}&pageToken=${
                     nextPageToken ?? ""
                 }&videoDuration=medium&key=${API_KEY}`
             );

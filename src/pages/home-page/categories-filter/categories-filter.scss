@@ -1,19 +1,31 @@
 @import '/src/style/variables.scss';
 
 .categories-filter__wrapper{
+    overflow: hidden;
     width: calc(100vw - ($navbar-width + 20px));
     min-width: 250px;
 }
 
 .categories-filter__inner{
     width: 100%;
-    overflow-x: auto;
     padding: 10px;
     display: flex;
     justify-content: flex-start;
     flex-wrap: nowrap;
     flex-direction: row;
     align-items: flex-start;
+
+    overflow-x: scroll;
+
+    touch-action: pan-y;
+    transition-duration: 0.15s;
+    transition-timing-function: cubic-bezier(0.05,0,0,1);
+    will-change: transform;
+    white-space: nowrap;
+
+    &::-webkit-scrollbar {
+        height: 7px;
+    }
 }
 
 .categories-filter__item{
@@ -24,8 +36,10 @@
     border-radius: 4px;
     cursor: pointer;
     min-width: max-content;
+    user-select: none;
 
     &.active{
+        pointer-events: none;
         background-color: #ffffff;
         color: #121214;
     }

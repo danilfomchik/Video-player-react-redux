@@ -1,19 +1,19 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { Skeleton } from "@chakra-ui/react";
 
 import VideosListItem from "../video-list-item/VideosListItem";
 import Portal from "../../../components/Portal";
 import StatusMessage from "../../../components/StatusMessage";
 import VideoSkeleton from "../../../components/VideoSkeleton";
 
-import { fetchVideos } from "./videosSlice";
+import { videosCount } from "../../../utils/constants";
+import { fetchVideos, resetVideosList } from "./videosSlice";
 
 import "./videos-list.scss";
 
 const VideosList = () => {
-    // const [filterParam, setFilterParam] = useState("All");
-
     const videos = useSelector((state) => state.videos.videos);
     const videosFetchStatus = useSelector(
         (state) => state.videos.videosFetchStatus
@@ -26,17 +26,15 @@ const VideosList = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // const firstFetchTimeout = setTimeout(() => {
         dispatch(fetchVideos({ nextPageToken, currentCategory }));
-        // }, 1000);
 
-        // return () => clearTimeout(firstFetchTimeout);
+        return () => dispatch(resetVideosList());
     }, [currentCategory]);
 
     const renderSkeletonList = () => {
         let skeletonList = [];
 
-        for (let i = 0; i <= 24; i++) {
+        for (let i = 0; i < videosCount; i++) {
             skeletonList[i] = <VideoSkeleton key={i} />;
         }
 
@@ -58,7 +56,7 @@ const VideosList = () => {
     return (
         <>
             <InfiniteScroll
-                className="videos-list"
+                // className="videos-list"
                 dataLength={videos.length}
                 next={() =>
                     dispatch(fetchVideos({ nextPageToken, currentCategory }))
@@ -67,7 +65,7 @@ const VideosList = () => {
                 scrollThreshold={0.9}
             >
                 <div className="videos-list">
-                    {nextPageToken === "" && videos.length < 8
+                    {nextPageToken === "" && videos.length < videosCount
                         ? renderSkeletonList()
                         : videosList}
                 </div>
