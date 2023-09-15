@@ -1,12 +1,12 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Skeleton } from "@chakra-ui/react";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import VideosListItem from "../video-list-item/VideosListItem";
 import Portal from "../../../components/Portal";
 import StatusMessage from "../../../components/StatusMessage";
-import VideoSkeleton from "../../../components/VideoSkeleton";
+import VideoSkeleton from "../../../components/skeletons/VideoSkeleton";
 
 import { videosCount } from "../../../utils/constants";
 import { fetchVideos, resetVideosList } from "./videosSlice";
@@ -41,33 +41,45 @@ const VideosList = () => {
         return skeletonList;
     };
 
+    let itemRefs = useRef([]);
+
     const renderVideosList = useCallback(
         (videos) => {
             return videos.map((video, index) => (
-                <VideosListItem key={index} video={video} />
+                <CSSTransition
+                    nodeRef={itemRefs.current[index + 1]}
+                    key={index}
+                    timeout={900}
+                    mountOnEnter={true}
+                    classNames="item"
+                >
+                    <VideosListItem key={index} video={video} />
+                </CSSTransition>
             ));
         },
         [nextPageToken]
     );
 
-    // const skeletonList = renderSkeletonList();
+    const skeletonList = renderSkeletonList();
     const videosList = renderVideosList(videos);
 
     return (
         <>
             <InfiniteScroll
-                // className="videos-list"
                 dataLength={videos.length}
                 next={() =>
                     dispatch(fetchVideos({ nextPageToken, currentCategory }))
                 }
                 hasMore={nextPageToken ? true : false}
-                scrollThreshold={0.9}
+                scrollThreshold={0.97}
             >
                 <div className="videos-list">
-                    {nextPageToken === "" && videos.length < videosCount
-                        ? renderSkeletonList()
-                        : videosList}
+                    {nextPageToken === "" &&
+                        videos.length < videosCount &&
+                        skeletonList}
+                    <TransitionGroup component={null} appear={true}>
+                        {videosList}
+                    </TransitionGroup>
                 </div>
             </InfiniteScroll>
             {videosFetchStatus !== "idle" && (

@@ -4,6 +4,8 @@ import { useInView } from "react-intersection-observer";
 import { Box, Image, Flex, Heading, Text, Avatar } from "@chakra-ui/react";
 import moment from "moment";
 
+import FieldSkeleton from "../../../components/skeletons/FieldSkeleton";
+
 import { loadMoreVideos } from "../videos-list/videosSlice";
 
 import httpRequest from "../../../utils/httpRequest";
@@ -17,18 +19,18 @@ const VideosListItem = ({ video }) => {
         snippet: {
             channelId,
             channelTitle,
-            title,
+            title: videoTitle,
             publishedAt,
             thumbnails: { medium },
         },
         contentDetails,
-        // statistics: { viewCount },
     } = video;
-
-    // console.log(video);
 
     const currentCategory = useSelector(
         (state) => state.categories.currentCategory
+    );
+    const videosFetchStatus = useSelector(
+        (state) => state.videos.videosFetchStatus
     );
 
     const [channelIcon, setChannelIcon] = useState("");
@@ -73,7 +75,7 @@ const VideosListItem = ({ video }) => {
                 <Image
                     className="videos-list__item-thumbnail"
                     src={medium.url}
-                    alt={title}
+                    alt={videoTitle}
                 />
                 {videoStatistics.contentDetails && (
                     <Text className="videos-list__item-duration">
@@ -83,12 +85,24 @@ const VideosListItem = ({ video }) => {
             </Box>
             <Flex padding="16px 5px 0px" style={{ gap: "0.5rem" }}>
                 <Box id={channelId} className="videos-list__item-channel">
-                    <Avatar
-                        bg="#E11D48"
-                        boxSize="35px"
-                        name={channelTitle}
-                        src={channelIcon ?? ""}
-                    />
+                    {channelIcon ? (
+                        <Avatar
+                            bg="#E11D48"
+                            boxSize="35px"
+                            name={channelTitle}
+                            src={channelIcon ?? ""}
+                        />
+                    ) : (
+                        <FieldSkeleton
+                            item="avatar"
+                            x="2"
+                            y="0"
+                            rx="100"
+                            ry="100"
+                            width="35"
+                            height="35"
+                        />
+                    )}
                 </Box>
                 <Box className="videos-list__item-info">
                     <Heading
@@ -96,7 +110,9 @@ const VideosListItem = ({ video }) => {
                         as="h3"
                         size="sm"
                     >
-                        {title.length > 30 ? title.slice(0, 60) + "..." : title}
+                        {videoTitle.length > 30
+                            ? videoTitle.slice(0, 60) + "..."
+                            : videoTitle}
                     </Heading>
                     <Text
                         className="videos-list__item_channel-name"
@@ -105,17 +121,31 @@ const VideosListItem = ({ video }) => {
                         {channelTitle}
                     </Text>
                     <Text fontSize="sm">
-                        <span>
-                            {Intl.NumberFormat("en", {
-                                notation: "compact",
-                            }).format(
-                                videoStatistics.statistics
-                                    ? videoStatistics?.statistics?.viewCount
-                                    : ""
-                            )}{" "}
-                            views
-                        </span>{" "}
-                        • <span>{moment(publishedAt).fromNow()}</span>
+                        {videoStatistics.statistics ? (
+                            <>
+                                <span>
+                                    {Intl.NumberFormat("en", {
+                                        notation: "compact",
+                                    }).format(
+                                        videoStatistics.statistics
+                                            ? videoStatistics?.statistics
+                                                  ?.viewCount
+                                            : ""
+                                    )}
+                                </span>{" "}
+                                • <span>{moment(publishedAt).fromNow()}</span>
+                            </>
+                        ) : (
+                            <FieldSkeleton
+                                item="text"
+                                x="0"
+                                y="5"
+                                rx="3"
+                                ry="3"
+                                width="220"
+                                height="15"
+                            />
+                        )}
                     </Text>
                 </Box>
             </Flex>

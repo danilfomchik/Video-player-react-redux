@@ -30,31 +30,12 @@ const CategoriesFilter = () => {
     const containerRef = useRef(null);
     const { events } = useScrollOnDrag(containerRef);
 
-    // const onDragScroll = (e) => {
-    //     console.log(e.target);
-
-    //     e.target.addEventListener("mousemove", () => {
-    //         console.log("move");
-    //     });
-
-    //     return e.target.removeEventListener("mousemove", () => {
-    //         console.log("move");
-    //     });
-    // };
-
-    // два события onMouseDown и onMouseUp. при onMouseDown запускается mousemove, а при onMouseUp удаляется этот слушатель.
-    // реализовать прокрутку нативным js
-    // сделать блок с фильтрами фиксированным
-
     return (
         <div className="categories-filter__wrapper">
             <div
                 className="categories-filter__inner"
-                // style={{ transform: "translateX(0px)" }}
                 ref={containerRef}
                 {...events}
-                // onMouseMove={() => console.log("move")}
-                // onMouseDown={(e) => onDragScroll(e)}
             >
                 <div
                     className={`categories-filter__item${

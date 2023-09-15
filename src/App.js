@@ -1,11 +1,14 @@
+import { lazy, Suspense } from "react";
 import { Box } from "@chakra-ui/react";
 import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./app/navbar/Navbar";
 import Header from "./app/header/Header";
 
-// make lazy load for pages
-import HomePage from "./pages/home-page/HomePage";
+import Spinner from "./components/Spinner";
+
+const HomePage = lazy(() => import("./pages/home-page/HomePage"));
+const Page404 = lazy(() => import("./pages/page404/Page404"));
 
 function App() {
     return (
@@ -21,35 +24,28 @@ function App() {
                 >
                     <Navbar />
 
-                    {/* <Suspense fallback={<Spinner />}> */}
-                    <Routes>
-                        <Route path="/" element={<HomePage />} />
-                        <Route
-                            path="library"
-                            element={
-                                <Box color="white" className="main-content">
-                                    library
-                                </Box>
-                            }
-                        />
-                        <Route
-                            path="/shorts"
-                            element={
-                                <Box color="white" className="main-content">
-                                    shorts
-                                </Box>
-                            }
-                        />
-                        <Route
-                            path="*"
-                            element={
-                                <Box color="white" className="main-content">
-                                    error
-                                </Box>
-                            }
-                        />
-                    </Routes>
-                    {/* </Suspense> */}
+                    <Suspense fallback={<Spinner />}>
+                        <Routes>
+                            <Route path="/" element={<HomePage />} />
+                            <Route
+                                path="library"
+                                element={
+                                    <Box color="white" className="main-content">
+                                        library
+                                    </Box>
+                                }
+                            />
+                            <Route
+                                path="/shorts"
+                                element={
+                                    <Box color="white" className="main-content">
+                                        shorts
+                                    </Box>
+                                }
+                            />
+                            <Route path="*" element={<Page404 />} />
+                        </Routes>
+                    </Suspense>
                 </Box>
             </main>
         </div>

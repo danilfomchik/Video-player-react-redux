@@ -1,16 +1,24 @@
 import { Box } from "@chakra-ui/react";
+// import { ErrorBoundary } from "react-error-boundary";
+import ErrorBoundary from "../../components/ErrorBoundary";
 
 import VideosList from "./videos-list/VideosList";
 import CategoriesFilter from "./categories-filter/CategoriesFilter";
 
 import "./home-page.scss";
 
+const Child = () => {
+    throw new Error("errerrerer");
+};
+
 const HomePage = () => {
     return (
         <Box color="white" className="main-content">
             <CategoriesFilter />
             <section>
-                <VideosList />
+                <ErrorBoundary fallback={<div>Something went wrong</div>}>
+                    <VideosList />
+                </ErrorBoundary>
             </section>
         </Box>
     );
@@ -18,11 +26,13 @@ const HomePage = () => {
 
 export default HomePage;
 
-// bugs:
-// ++ починить подгрузку по скроллу
-// ++ при изменении категории нужно обновлять массив с видео (чтобы новые видео были единственные в массиве)
-// ++ get_channel_icon срабатывает на следующий рендер, а не сразу
-// ++ добавить дьюрейшн, вьювс в компоненте видео (загружаются, но из-за того что компонент рендерится не дожидаясь их - они не успеваю отрендерится) - для фикса нужно чекать момент загрузки и потом отображать
-// ++ Показывать скелетон при первой загрузке, при изменении категории, при вводе в поиск. А при пагинации только сообщение о подгрузке
+// сделать блок с фильтрами фиксированным
 
-// доделать верстку блока с категориями
+// Добавить эрор баундери
+
+// использовать useSearchParams router-dom для сохранения категории в юрл адресе
+// https://www.youtube.com/watch?v=ukpgxEemXsk&ab_channel=ByteGrad
+// (попробовать, не факт что будет в проекте)
+
+// Для удаление, добавления и получения плейлиста с видео использовать ртк квери
+// Написать тесты

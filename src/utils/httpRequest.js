@@ -5,10 +5,13 @@ const httpRequest = () => {
         body = null,
         headers = { "Content-Type": "application/json" }
     ) => {
+        // throw new Error();
+
         try {
             const response = await fetch(url, { method, body, headers });
 
             if (!response.ok) {
+                console.log("error");
                 throw new Error(
                     `Could not fetch ${url}, status: ${response.status}`
                 );
