@@ -1,5 +1,6 @@
 import React from "react";
 import { Box } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 import anime from "animejs/lib/anime.es.js";
 
@@ -13,7 +14,8 @@ const Page404 = () => {
 
     useEffect(() => {
         boxAnimation.current = anime({
-            targets: ".row svg",
+            // targets: [".row svg", ".return-back"],
+            targets: [".error-animation svg"],
             translateY: 10,
             autoplay: true,
             loop: true,
@@ -35,7 +37,27 @@ const Page404 = () => {
 
     return (
         <Box className="page404-container">
-            <div className="row">
+            <Box className="error-message">
+                <h1 className="return-back">
+                    You didn't break the internet, but we can't find the page
+                    you are looking for.
+                </h1>
+
+                <Link
+                    to="/"
+                    style={{
+                        border: "1px solid #ffffff",
+                        margin: "10px",
+                        display: "inline-block",
+                        fontSize: "18px",
+                    }}
+                    className="nav-bar__item"
+                >
+                    <b>Our Home page</b>
+                </Link>
+            </Box>
+
+            <div className="row error-animation">
                 <div className="col-sm-12 col-md-12 mt-5 mb-5">
                     <svg
                         width="100%"

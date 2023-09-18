@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { Box } from "@chakra-ui/react";
 
 import VideosListItem from "../video-list-item/VideosListItem";
 import Portal from "../../../components/Portal";
@@ -73,14 +74,14 @@ const VideosList = () => {
                 hasMore={nextPageToken ? true : false}
                 scrollThreshold={0.97}
             >
-                <div className="videos-list">
+                <Box className="videos-list">
                     {nextPageToken === "" &&
                         videos.length < videosCount &&
                         skeletonList}
                     <TransitionGroup component={null} appear={true}>
                         {videosList}
                     </TransitionGroup>
-                </div>
+                </Box>
             </InfiniteScroll>
             {videosFetchStatus !== "idle" && (
                 <Portal>

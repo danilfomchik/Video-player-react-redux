@@ -1,14 +1,38 @@
 @import '/src/style/variables.scss';
 
 .page404-container{
+    // position: relative;
+    display: flex;
+    justify-content: space-evenly;
     width: 100%;
     height: 100%;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
     margin: $header-height 0px 0px $navbar-width;
+    padding: 60px 15px 0px;
 
-    .row{
-        max-width: 75%;
-        margin: 0 auto;
-        padding: 50px 50px 50px 0px;
+    .row.error-animation{
+        width: 55%;
+        max-width: 55%;
+        // padding: 50px 0px 0px 0px;
+    }
+    
+    .error-message{        
+        width: 40%;
+        max-width: 40%;
+    }
+
+    .return-back{
+        color: #ffffff;
+        font-size: 28px;
+        line-height: 35px;
+        z-index: 100;
+        padding: 0px 20px 20px 10px;
+
+        &__link{
+            color: #ffffff;
+        }
     }
 }
 

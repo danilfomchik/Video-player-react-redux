@@ -28,7 +28,7 @@ export default HomePage;
 
 // сделать блок с фильтрами фиксированным
 
-// Добавить эрор баундери
+// создать компонент ошибки (для эрор баундери, ошибок и тд)
 
 // использовать useSearchParams router-dom для сохранения категории в юрл адресе
 // https://www.youtube.com/watch?v=ukpgxEemXsk&ab_channel=ByteGrad
