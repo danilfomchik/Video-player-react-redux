@@ -13,6 +13,7 @@ const initialState = {
 export const fetchVideos = createAsyncThunk(
     "videos/fetchVideos",
     ({ nextPageToken = "", currentCategory }) => {
+        console.log("fetch");
         const { request } = httpRequest();
 
         if (currentCategory === "all") {

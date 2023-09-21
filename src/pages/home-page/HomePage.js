@@ -1,5 +1,4 @@
 import { Box } from "@chakra-ui/react";
-// import { ErrorBoundary } from "react-error-boundary";
 import ErrorBoundary from "../../components/ErrorBoundary";
 
 import VideosList from "./videos-list/VideosList";
@@ -26,7 +25,7 @@ const HomePage = () => {
 
 export default HomePage;
 
-// сделать блок с фильтрами фиксированным
+// при скролле мыши над блоком с категориями чтобы срабатывал скролл
 
 // создать компонент ошибки (для эрор баундери, ошибок и тд)
 

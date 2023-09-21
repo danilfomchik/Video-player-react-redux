@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useScrollOnDrag from "react-scroll-ondrag";
 
+import { onPageChange } from "../../../utils/helpers";
+
 import { resetVideosList } from "../videos-list/videosSlice";
 import { fetchCategories, changeCurrentCategory } from "./categoriesSlice";
 
@@ -28,10 +30,12 @@ const CategoriesFilter = () => {
     };
 
     const containerRef = useRef(null);
+    const wrapperRef = useRef(null);
+
     const { events } = useScrollOnDrag(containerRef);
 
     return (
-        <div className="categories-filter__wrapper">
+        <div className="categories-filter__wrapper" ref={wrapperRef}>
             <div
                 className="categories-filter__inner"
                 ref={containerRef}
@@ -41,7 +45,10 @@ const CategoriesFilter = () => {
                     className={`categories-filter__item${
                         currentCategory === "all" ? " active" : ""
                     }`}
-                    onClick={() => handleCategoryChange("all")}
+                    onClick={() => {
+                        handleCategoryChange("all");
+                        onPageChange(wrapperRef);
+                    }}
                 >
                     <span>All</span>
                 </div>
@@ -59,9 +66,10 @@ const CategoriesFilter = () => {
                                     ? " active"
                                     : ""
                             }`}
-                            onClick={() =>
-                                handleCategoryChange(title.toLowerCase())
-                            }
+                            onClick={() => {
+                                handleCategoryChange(title.toLowerCase());
+                                onPageChange(wrapperRef);
+                            }}
                         >
                             <span>{title}</span>
                         </div>

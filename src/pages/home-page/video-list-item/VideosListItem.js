@@ -61,13 +61,13 @@ const VideosListItem = ({ video }) => {
                 `/videos?part=snippet,contentDetails,statistics&id=${videoId}&key=${API_KEY}`
         );
 
-        setVideoStatistics(response.items[0]);
+        setVideoStatistics(response?.items?.[0]);
     };
 
     useEffect(() => {
         getVideoStatistics(_videoId);
         getChannelIcon();
-    }, [currentCategory]);
+    }, [video]);
 
     return (
         <Box className="videos-list__item" id={_videoId}>
@@ -90,7 +90,7 @@ const VideosListItem = ({ video }) => {
                             bg="#E11D48"
                             boxSize="35px"
                             name={channelTitle}
-                            src={channelIcon ?? ""}
+                            src={channelIcon}
                         />
                     ) : (
                         <FieldSkeleton

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
@@ -11,6 +11,8 @@ import VideoSkeleton from "../../../components/skeletons/VideoSkeleton";
 
 import { videosCount } from "../../../utils/constants";
 import { fetchVideos, resetVideosList } from "./videosSlice";
+
+import skeletonList from "../../../components/skeletons/skeletonList";
 
 import "./videos-list.scss";
 
@@ -29,41 +31,28 @@ const VideosList = () => {
     useEffect(() => {
         dispatch(fetchVideos({ nextPageToken, currentCategory }));
 
-        return () => dispatch(resetVideosList());
+        // return () => dispatch(resetVideosList());
     }, [currentCategory]);
 
-    const renderSkeletonList = () => {
-        let skeletonList = [];
-
-        for (let i = 0; i < videosCount; i++) {
-            skeletonList[i] = <VideoSkeleton key={i} />;
-        }
-
-        return skeletonList;
-    };
+    // const renderVideosList = useCallback(() => {
+    //     return videos.map((video, index) => (
+    //         <CSSTransition
+    //             nodeRef={itemRefs.current[index + 1]}
+    //             key={index}
+    //             timeout={900}
+    //             mountOnEnter={true}
+    //             classNames="item"
+    //         >
+    //             <VideosListItem key={index} video={video} />
+    //         </CSSTransition>
+    //     ));
+    // }, [currentCategory]);
 
     let itemRefs = useRef([]);
 
-    const renderVideosList = useCallback(
-        (videos) => {
-            return videos.map((video, index) => (
-                <CSSTransition
-                    nodeRef={itemRefs.current[index + 1]}
-                    key={index}
-                    timeout={900}
-                    mountOnEnter={true}
-                    classNames="item"
-                >
-                    <VideosListItem key={index} video={video} />
-                </CSSTransition>
-            ));
-        },
-        [nextPageToken]
-    );
+    // const videosList = renderVideosList();
 
-    const skeletonList = renderSkeletonList();
-    const videosList = renderVideosList(videos);
-
+    // console.log(videos);
     return (
         <>
             <InfiniteScroll
@@ -79,7 +68,17 @@ const VideosList = () => {
                         videos.length < videosCount &&
                         skeletonList}
                     <TransitionGroup component={null} appear={true}>
-                        {videosList}
+                        {videos.map((video, index) => (
+                            <CSSTransition
+                                nodeRef={itemRefs.current[index + 1]}
+                                key={index}
+                                timeout={900}
+                                mountOnEnter={true}
+                                classNames="item"
+                            >
+                                <VideosListItem key={index} video={video} />
+                            </CSSTransition>
+                        ))}
                     </TransitionGroup>
                 </Box>
             </InfiniteScroll>
