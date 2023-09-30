@@ -1,6 +1,8 @@
 import { Avatar, Input, Image, Box } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
+import Search from "./search/Search";
+
 import logo from "../../assets/icon.png";
 
 import "./header.scss";
@@ -20,14 +22,7 @@ const Header = () => {
                             />
                         </Link>
                     </Box>
-                    <Box className="header__search">
-                        <Input
-                            variant="flushed"
-                            placeholder="Enter a request"
-                            focusBorderColor="#E11D48"
-                            color="white"
-                        />
-                    </Box>
+                    <Search />
                     <Box className="header__user">
                         <Avatar bg="#E11D48" boxSize="35px" />
                     </Box>

@@ -29,6 +29,24 @@
 
     &__search{
         flex: 0 1 732px;
+        display: flex;
+        align-items: center;
+        position: relative;
         // margin: 0px 50px;
+
+        .fa-wrapper{
+            position: absolute;
+            right: 10px;
+            text-align: center;
+            width: auto;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .fa-magnifying-glass{
+            color: #ffffff;
+            width: 19px;
+            height: 19px;
+        }
     }
 }

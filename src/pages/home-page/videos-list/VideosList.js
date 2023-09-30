@@ -11,12 +11,17 @@ import VideoSkeleton from "../../../components/skeletons/VideoSkeleton";
 
 import { videosCount } from "../../../utils/constants";
 import { fetchVideos, resetVideosList } from "./videosSlice";
+import { resetSearchValue } from "../../../app/header/search/searchSlice";
 
 import skeletonList from "../../../components/skeletons/skeletonList";
+
+import { onPageChange } from "../../../utils/helpers";
 
 import "./videos-list.scss";
 
 const VideosList = () => {
+    const dispatch = useDispatch();
+
     const videos = useSelector((state) => state.videos.videos);
     const videosFetchStatus = useSelector(
         (state) => state.videos.videosFetchStatus
@@ -26,39 +31,41 @@ const VideosList = () => {
         (state) => state.categories.currentCategory
     );
 
-    const dispatch = useDispatch();
+    const searchValue = useSelector((state) => state.search.searchValue);
+
+    const firstUpdate = useRef(true);
 
     useEffect(() => {
-        dispatch(fetchVideos({ nextPageToken, currentCategory }));
+        onPageChange(wrapperRef);
+        console.log("fetch");
 
-        // return () => dispatch(resetVideosList());
-    }, [currentCategory]);
+        dispatch(fetchVideos({ nextPageToken, currentCategory, searchValue }));
 
-    // const renderVideosList = useCallback(() => {
-    //     return videos.map((video, index) => (
-    //         <CSSTransition
-    //             nodeRef={itemRefs.current[index + 1]}
-    //             key={index}
-    //             timeout={900}
-    //             mountOnEnter={true}
-    //             classNames="item"
-    //         >
-    //             <VideosListItem key={index} video={video} />
-    //         </CSSTransition>
-    //     ));
-    // }, [currentCategory]);
+        // if (firstUpdate.current) {
+        //     firstUpdate.current = false;
+        // } else {
+        //     // do things after first render
+        //     // dispatch(resetVideosList());
+        //     // dispatch(resetSearchValue());
+        // }
+    }, [currentCategory, searchValue]);
 
-    let itemRefs = useRef([]);
+    const itemRefs = useRef([]);
+    const wrapperRef = useRef(null);
 
-    // const videosList = renderVideosList();
-
-    // console.log(videos);
     return (
         <>
+            <div className="wrapper-ref" ref={wrapperRef}></div>
             <InfiniteScroll
                 dataLength={videos.length}
                 next={() =>
-                    dispatch(fetchVideos({ nextPageToken, currentCategory }))
+                    dispatch(
+                        fetchVideos({
+                            nextPageToken,
+                            currentCategory,
+                            searchValue,
+                        })
+                    )
                 }
                 hasMore={nextPageToken ? true : false}
                 scrollThreshold={0.97}

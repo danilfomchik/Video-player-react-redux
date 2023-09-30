@@ -6,10 +6,6 @@ import CategoriesFilter from "./categories-filter/CategoriesFilter";
 
 import "./home-page.scss";
 
-const Child = () => {
-    throw new Error("errerrerer");
-};
-
 const HomePage = () => {
     return (
         <Box color="white" className="main-content">
@@ -25,7 +21,11 @@ const HomePage = () => {
 
 export default HomePage;
 
+// подфиксить блок с категориями - скролл уходит за область видимости
 // при скролле мыши над блоком с категориями чтобы срабатывал скролл
+// Добавить стрелку для категорий
+
+// Обернуть рендер скелетон лист в юзколбек
 
 // создать компонент ошибки (для эрор баундери, ошибок и тд)
 

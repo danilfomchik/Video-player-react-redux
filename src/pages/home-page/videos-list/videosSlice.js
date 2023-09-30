@@ -12,20 +12,24 @@ const initialState = {
 
 export const fetchVideos = createAsyncThunk(
     "videos/fetchVideos",
-    ({ nextPageToken = "", currentCategory }) => {
-        console.log("fetch");
+    ({ nextPageToken = "", currentCategory, searchValue }) => {
         const { request } = httpRequest();
 
-        if (currentCategory === "all") {
+        if (currentCategory === "0" && !searchValue) {
             return request(
-                `${BASE_URL}/videos?part=snippet,contentDetails,statistics&maxResults=${videosCount}&chart=mostPopular&regionCode=UA&pageToken=${
+                `${BASE_URL}/videos?part=snippet,contentDetails,statistics&maxResults=${videosCount}&chart=mostPopular&regionCode=UA&relevanceLanguage=uk&pageToken=${
                     nextPageToken ?? ""
                 }&videoDuration=medium&key=${API_KEY}`
             );
-        } else {
-            // using for filter by query and by category
+        } else if (currentCategory === "0" && searchValue) {
             return request(
-                `${BASE_URL}/search?part=snippet&maxResults=${videosCount}&type=video&regionCode=UA&q=${currentCategory}&pageToken=${
+                `${BASE_URL}/search?part=snippet&chart=mostPopular&relevanceLanguage=uk&maxResults=${videosCount}&q=${searchValue}&type=video&regionCode=UA&pageToken=${
+                    nextPageToken ?? ""
+                }&videoDuration=medium&key=${API_KEY}`
+            );
+        } else if (currentCategory !== "0") {
+            return request(
+                `${BASE_URL}/search?part=snippet&relevanceLanguage=uk&maxResults=${videosCount}&q=${searchValue}&videoCategoryId=${currentCategory}&type=video&regionCode=UA&pageToken=${
                     nextPageToken ?? ""
                 }&videoDuration=medium&key=${API_KEY}`
             );

@@ -45,29 +45,29 @@ const VideosListItem = ({ video }) => {
         .asSeconds();
     const _duration = moment.utc(seconds * 1000).format("mm:ss");
 
-    const getChannelIcon = async () => {
-        const response = await request(
-            BASE_URL + `/channels?part=snippet&id=${channelId}&key=${API_KEY}`
-        );
+    // const getChannelIcon = async () => {
+    //     const response = await request(
+    //         BASE_URL + `/channels?part=snippet&id=${channelId}&key=${API_KEY}`
+    //     );
 
-        setChannelIcon(
-            response?.items?.[0]?.snippet?.thumbnails?.default?.url || ""
-        );
-    };
+    //     setChannelIcon(
+    //         response?.items?.[0]?.snippet?.thumbnails?.default?.url || ""
+    //     );
+    // };
 
-    const getVideoStatistics = async (videoId) => {
-        const response = await request(
-            BASE_URL +
-                `/videos?part=snippet,contentDetails,statistics&id=${videoId}&key=${API_KEY}`
-        );
+    // const getVideoStatistics = async (videoId) => {
+    //     const response = await request(
+    //         BASE_URL +
+    //             `/videos?part=snippet,contentDetails,statistics&id=${videoId}&key=${API_KEY}`
+    //     );
 
-        setVideoStatistics(response?.items?.[0]);
-    };
+    //     setVideoStatistics(response?.items?.[0]);
+    // };
 
-    useEffect(() => {
-        getVideoStatistics(_videoId);
-        getChannelIcon();
-    }, [video]);
+    // useEffect(() => {
+    //     getVideoStatistics(_videoId);
+    //     getChannelIcon();
+    // }, [video]);
 
     return (
         <Box className="videos-list__item" id={_videoId}>

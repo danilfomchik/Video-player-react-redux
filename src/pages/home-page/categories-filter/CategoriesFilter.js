@@ -2,40 +2,48 @@ import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useScrollOnDrag from "react-scroll-ondrag";
 
-import { onPageChange } from "../../../utils/helpers";
-
 import { resetVideosList } from "../videos-list/videosSlice";
 import { fetchCategories, changeCurrentCategory } from "./categoriesSlice";
+
+import { resetSearchValue } from "../../../app/header/search/searchSlice";
 
 import "./categories-filter.scss";
 
 const CategoriesFilter = () => {
     const dispatch = useDispatch();
+
     const categories = useSelector((state) => state.categories.categories);
     const currentCategory = useSelector(
         (state) => state.categories.currentCategory
     );
+    const searchValue = useSelector((state) => state.search.searchValue);
 
     useEffect(() => {
         if (categories.length === 0) {
             dispatch(fetchCategories());
         }
 
-        return () => dispatch(changeCurrentCategory("all"));
+        return () => dispatch(changeCurrentCategory("0"));
     }, []);
 
-    const handleCategoryChange = (param) => {
+    const handleCategoryChange = (id) => {
         dispatch(resetVideosList());
-        dispatch(changeCurrentCategory(param));
+
+        dispatch(changeCurrentCategory(id));
+
+        if (searchValue) {
+            console.log("categ");
+
+            dispatch(resetSearchValue());
+        }
     };
 
     const containerRef = useRef(null);
-    const wrapperRef = useRef(null);
 
     const { events } = useScrollOnDrag(containerRef);
 
     return (
-        <div className="categories-filter__wrapper" ref={wrapperRef}>
+        <div className="categories-filter__wrapper">
             <div
                 className="categories-filter__inner"
                 ref={containerRef}
@@ -43,11 +51,10 @@ const CategoriesFilter = () => {
             >
                 <div
                     className={`categories-filter__item${
-                        currentCategory === "all" ? " active" : ""
+                        currentCategory === "0" ? " active" : ""
                     }`}
                     onClick={() => {
-                        handleCategoryChange("all");
-                        onPageChange(wrapperRef);
+                        handleCategoryChange("0");
                     }}
                 >
                     <span>All</span>
@@ -62,13 +69,10 @@ const CategoriesFilter = () => {
                         <div
                             key={id}
                             className={`categories-filter__item${
-                                currentCategory === title.toLowerCase()
-                                    ? " active"
-                                    : ""
+                                currentCategory === category.id ? " active" : ""
                             }`}
                             onClick={() => {
-                                handleCategoryChange(title.toLowerCase());
-                                onPageChange(wrapperRef);
+                                handleCategoryChange(category.id);
                             }}
                         >
                             <span>{title}</span>

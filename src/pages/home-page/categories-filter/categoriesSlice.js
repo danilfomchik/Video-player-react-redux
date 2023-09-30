@@ -7,7 +7,7 @@ import { BASE_URL, API_KEY } from "../../../utils/constants";
 const initialState = {
     categories: [],
     categoriesFetchStatus: "idle",
-    currentCategory: "all",
+    currentCategory: "0",
 };
 
 export const fetchCategories = createAsyncThunk(
