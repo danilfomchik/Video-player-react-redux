@@ -4,3 +4,19 @@ export const onPageChange = (searchRef) => {
         behavior: "smooth",
     });
 };
+
+export const enableHorizontalScroll = (containerRef) => {
+    if (containerRef.current) {
+        containerRef.current.addEventListener(
+            "wheel",
+            (e) => {
+                e.preventDefault();
+
+                console.log(e.deltaY);
+
+                containerRef.current.scrollLeft += e.deltaY;
+            },
+            { passive: false }
+        );
+    }
+};

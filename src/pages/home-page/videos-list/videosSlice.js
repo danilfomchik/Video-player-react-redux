@@ -1,5 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+import { onSearch } from "../../../app/header/search/searchSlice";
+import { changeCurrentCategory } from "../categories-filter/categoriesSlice";
+
 import httpRequest from "../../../utils/httpRequest";
 
 import { BASE_URL, API_KEY, videosCount } from "../../../utils/constants";
@@ -59,6 +62,14 @@ const videosSlice = createSlice({
             })
             .addCase(fetchVideos.rejected, (state) => {
                 state.videosFetchStatus = "error";
+            })
+            .addCase(onSearch, (state) => {
+                state.videos = [];
+                state.nextPageToken = "";
+            })
+            .addCase(changeCurrentCategory, (state) => {
+                state.videos = [];
+                state.nextPageToken = "";
             })
             .addDefaultCase(() => {});
     },

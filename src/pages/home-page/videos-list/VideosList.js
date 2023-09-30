@@ -33,21 +33,10 @@ const VideosList = () => {
 
     const searchValue = useSelector((state) => state.search.searchValue);
 
-    const firstUpdate = useRef(true);
-
     useEffect(() => {
         onPageChange(wrapperRef);
-        console.log("fetch");
 
         dispatch(fetchVideos({ nextPageToken, currentCategory, searchValue }));
-
-        // if (firstUpdate.current) {
-        //     firstUpdate.current = false;
-        // } else {
-        //     // do things after first render
-        //     // dispatch(resetVideosList());
-        //     // dispatch(resetSearchValue());
-        // }
     }, [currentCategory, searchValue]);
 
     const itemRefs = useRef([]);

@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import { changeCurrentCategory } from "../../../pages/home-page/categories-filter/categoriesSlice";
+
 const initialState = {
     searchValue: "",
 };
@@ -14,6 +16,11 @@ const searchSlice = createSlice({
         resetSearchValue: (state) => {
             state.searchValue = "";
         },
+    },
+    extraReducers: (builder) => {
+        builder.addCase(changeCurrentCategory, (state) => {
+            state.searchValue = "";
+        });
     },
 });
 

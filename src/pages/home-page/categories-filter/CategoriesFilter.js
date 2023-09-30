@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useScrollOnDrag from "react-scroll-ondrag";
 
+import { enableHorizontalScroll } from "../../../utils/helpers";
+
 import { resetVideosList } from "../videos-list/videosSlice";
 import { fetchCategories, changeCurrentCategory } from "./categoriesSlice";
 
@@ -16,71 +18,66 @@ const CategoriesFilter = () => {
     const currentCategory = useSelector(
         (state) => state.categories.currentCategory
     );
-    const searchValue = useSelector((state) => state.search.searchValue);
 
     useEffect(() => {
         if (categories.length === 0) {
             dispatch(fetchCategories());
         }
 
+        enableHorizontalScroll(containerRef);
+
         return () => dispatch(changeCurrentCategory("0"));
     }, []);
-
-    const handleCategoryChange = (id) => {
-        dispatch(resetVideosList());
-
-        dispatch(changeCurrentCategory(id));
-
-        if (searchValue) {
-            console.log("categ");
-
-            dispatch(resetSearchValue());
-        }
-    };
 
     const containerRef = useRef(null);
 
     const { events } = useScrollOnDrag(containerRef);
 
     return (
-        <div className="categories-filter__wrapper">
-            <div
-                className="categories-filter__inner"
-                ref={containerRef}
-                {...events}
-            >
+        <section>
+            <div className="categories-filter__wrapper">
                 <div
-                    className={`categories-filter__item${
-                        currentCategory === "0" ? " active" : ""
-                    }`}
-                    onClick={() => {
-                        handleCategoryChange("0");
-                    }}
+                    className="categories-filter__inner"
+                    ref={containerRef}
+                    {...events}
                 >
-                    <span>All</span>
-                </div>
-                {categories.map((category) => {
-                    const {
-                        id,
-                        snippet: { title },
-                    } = category;
+                    <div
+                        className={`categories-filter__item${
+                            currentCategory === "0" ? " active" : ""
+                        }`}
+                        onClick={() => {
+                            dispatch(changeCurrentCategory("0"));
+                        }}
+                    >
+                        <span>All</span>
+                    </div>
+                    {categories.map((category) => {
+                        const {
+                            id,
+                            snippet: { title },
+                        } = category;
 
-                    return (
-                        <div
-                            key={id}
-                            className={`categories-filter__item${
-                                currentCategory === category.id ? " active" : ""
-                            }`}
-                            onClick={() => {
-                                handleCategoryChange(category.id);
-                            }}
-                        >
-                            <span>{title}</span>
-                        </div>
-                    );
-                })}
+                        return (
+                            <div
+                                key={id}
+                                className={`categories-filter__item${
+                                    currentCategory === category.id
+                                        ? " active"
+                                        : ""
+                                }`}
+                                onClick={() => {
+                                    dispatch(
+                                        changeCurrentCategory(category.id)
+                                    );
+                                }}
+                            >
+                                <span>{title}</span>
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
-        </div>
+        </section>
     );
 };
 

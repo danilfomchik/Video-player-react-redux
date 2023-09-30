@@ -9,20 +9,9 @@ import { onSearch, resetSearchValue } from "./searchSlice";
 
 const Search = () => {
     const dispatch = useDispatch();
-    const searchValue = useSelector((state) => state.search.searchValue);
-    const currentCategory = useSelector(
-        (state) => state.categories.currentCategory
-    );
 
     const [value, setValue] = useState("");
     const inputRef = useRef(null);
-
-    // useEffect(() => {
-    //     if (searchValue) {
-    //         console.log("search");
-    //         dispatch(resetSearchValue());
-    //     }
-    // }, [currentCategory]);
 
     return (
         <Box className="header__search">
@@ -39,7 +28,6 @@ const Search = () => {
             <Box
                 className="fa-wrapper"
                 onClick={() => {
-                    dispatch(resetVideosList());
                     dispatch(onSearch(inputRef.current.value));
                 }}
             >
