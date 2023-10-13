@@ -1,5 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
+import qs from "query-string";
+
 import useScrollOnDrag from "react-scroll-ondrag";
 
 import { enableHorizontalScroll } from "../../../utils/helpers";
@@ -26,7 +29,7 @@ const CategoriesFilter = () => {
 
         enableHorizontalScroll(containerRef);
 
-        return () => dispatch(changeCurrentCategory("0"));
+        // return () => dispatch(changeCurrentCategory("0"));
     }, []);
 
     const containerRef = useRef(null);
@@ -46,6 +49,7 @@ const CategoriesFilter = () => {
                             currentCategory === "0" ? " active" : ""
                         }`}
                         onClick={() => {
+                            dispatch(resetSearchValue());
                             dispatch(changeCurrentCategory("0"));
                         }}
                     >
@@ -66,6 +70,7 @@ const CategoriesFilter = () => {
                                         : ""
                                 }`}
                                 onClick={() => {
+                                    dispatch(resetSearchValue());
                                     dispatch(
                                         changeCurrentCategory(category.id)
                                     );

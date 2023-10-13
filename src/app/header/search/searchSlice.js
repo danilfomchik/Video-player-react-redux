@@ -1,9 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import qs from "query-string";
 
 import { changeCurrentCategory } from "../../../pages/home-page/categories-filter/categoriesSlice";
 
+const { searchQuery } = qs.parse(document.location.search);
+
 const initialState = {
-    searchValue: "",
+    searchValue: searchQuery || "",
 };
 
 const searchSlice = createSlice({
@@ -18,9 +21,9 @@ const searchSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(changeCurrentCategory, (state) => {
-            state.searchValue = "";
-        });
+        // builder.addCase(changeCurrentCategory, (state) => {
+        //     state.searchValue = "";
+        // });
     },
 });
 

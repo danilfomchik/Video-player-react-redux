@@ -1,13 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import qs from "query-string";
 
 import httpRequest from "../../../utils/httpRequest";
 
 import { BASE_URL, API_KEY } from "../../../utils/constants";
 
+const { categoryId } = qs.parse(document.location.search);
+
 const initialState = {
     categories: [],
     categoriesFetchStatus: "idle",
-    currentCategory: "0",
+    currentCategory: categoryId || "0",
 };
 
 export const fetchCategories = createAsyncThunk(

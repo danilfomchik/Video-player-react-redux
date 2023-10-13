@@ -1,6 +1,6 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Box } from "@chakra-ui/react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useSearchParams } from "react-router-dom";
 
 import Navbar from "./app/navbar/Navbar";
 import Header from "./app/header/Header";
@@ -26,7 +26,7 @@ function App() {
 
                     <Suspense fallback={<Spinner />}>
                         <Routes>
-                            <Route path="/" element={<HomePage />} />
+                            <Route exact path="/" element={<HomePage />} />
                             <Route
                                 path="library"
                                 element={

@@ -34,19 +34,26 @@
         position: relative;
         // margin: 0px 50px;
 
-        .fa-wrapper{
+        .form-controlls{
             position: absolute;
             right: 10px;
-            text-align: center;
-            width: auto;
-            height: auto;
-            cursor: pointer;
+            display: flex;
+            align-items: center;
+            width: 8%;
+            justify-content: space-between;
+
+            .divider{
+                height: 24px;
+                width: 1px;
+                background-color: #ffffff;
+            }
         }
 
-        .fa-magnifying-glass{
+        .fa-xmark, .fa-magnifying-glass{
             color: #ffffff;
             width: 19px;
             height: 19px;
+            cursor: pointer;
         }
     }
 }

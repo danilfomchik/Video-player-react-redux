@@ -63,19 +63,24 @@ const VideosList = () => {
                     {nextPageToken === "" &&
                         videos.length < videosCount &&
                         skeletonList}
-                    <TransitionGroup component={null} appear={true}>
-                        {videos.map((video, index) => (
-                            <CSSTransition
-                                nodeRef={itemRefs.current[index + 1]}
-                                key={index}
-                                timeout={900}
-                                mountOnEnter={true}
-                                classNames="item"
-                            >
-                                <VideosListItem key={index} video={video} />
-                            </CSSTransition>
-                        ))}
-                    </TransitionGroup>
+
+                    {videos.length > 0 ? (
+                        <TransitionGroup component={null} appear={true}>
+                            {videos.map((video, index) => (
+                                <CSSTransition
+                                    nodeRef={itemRefs.current[index + 1]}
+                                    key={index}
+                                    timeout={900}
+                                    mountOnEnter={true}
+                                    classNames="item"
+                                >
+                                    <VideosListItem key={index} video={video} />
+                                </CSSTransition>
+                            ))}
+                        </TransitionGroup>
+                    ) : (
+                        <p>Nothing to show...</p>
+                    )}
                 </Box>
             </InfiniteScroll>
             {videosFetchStatus !== "idle" && (

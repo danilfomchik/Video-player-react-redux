@@ -18,6 +18,8 @@ export const fetchVideos = createAsyncThunk(
     ({ nextPageToken = "", currentCategory, searchValue }) => {
         const { request } = httpRequest();
 
+        console.log("request-->", currentCategory, searchValue);
+
         if (currentCategory === "0" && !searchValue) {
             return request(
                 `${BASE_URL}/videos?part=snippet,contentDetails,statistics&maxResults=${videosCount}&chart=mostPopular&regionCode=UA&relevanceLanguage=uk&pageToken=${
@@ -30,7 +32,7 @@ export const fetchVideos = createAsyncThunk(
                     nextPageToken ?? ""
                 }&videoDuration=medium&key=${API_KEY}`
             );
-        } else if (currentCategory !== "0") {
+        } else {
             return request(
                 `${BASE_URL}/search?part=snippet&relevanceLanguage=uk&maxResults=${videosCount}&q=${searchValue}&videoCategoryId=${currentCategory}&type=video&regionCode=UA&pageToken=${
                     nextPageToken ?? ""

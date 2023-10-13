@@ -12,8 +12,6 @@ export const enableHorizontalScroll = (containerRef) => {
             (e) => {
                 e.preventDefault();
 
-                console.log(e.deltaY);
-
                 containerRef.current.scrollLeft += e.deltaY;
             },
             { passive: false }
