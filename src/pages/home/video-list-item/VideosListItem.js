@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
 import { Box, Image, Flex, Heading, Text, Avatar } from "@chakra-ui/react";
@@ -14,6 +15,8 @@ import { BASE_URL, API_KEY } from "../../../utils/constants";
 import "./video-list-item.scss";
 
 const VideosListItem = ({ video }) => {
+    const navigate = useNavigate();
+
     const {
         id,
         snippet: {
@@ -46,9 +49,11 @@ const VideosListItem = ({ video }) => {
     const _duration = moment.utc(seconds * 1000).format("mm:ss");
 
     // const getChannelIcon = async () => {
-    //     const response = await request(
-    //         BASE_URL + `/channels?part=snippet&id=${channelId}&key=${API_KEY}`
-    //     );
+    //     const response = await request({
+    //         url:
+    //             BASE_URL +
+    //             `/channels?part=snippet&id=${channelId}&key=${API_KEY}`,
+    //     });
 
     //     setChannelIcon(
     //         response?.items?.[0]?.snippet?.thumbnails?.default?.url || ""
@@ -56,10 +61,11 @@ const VideosListItem = ({ video }) => {
     // };
 
     // const getVideoStatistics = async (videoId) => {
-    //     const response = await request(
-    //         BASE_URL +
-    //             `/videos?part=snippet,contentDetails,statistics&id=${videoId}&key=${API_KEY}`
-    //     );
+    //     const response = await request({
+    //         url:
+    //             BASE_URL +
+    //             `/videos?part=snippet,contentDetails,statistics&id=${videoId}&key=${API_KEY}`,
+    //     });
 
     //     setVideoStatistics(response?.items?.[0]);
     // };
@@ -70,7 +76,16 @@ const VideosListItem = ({ video }) => {
     // }, [video]);
 
     return (
-        <Box className="videos-list__item" id={_videoId}>
+        // <Link to={`/watch`}>
+        <Box
+            className="videos-list__item"
+            id={_videoId}
+            onClick={() => {
+                navigate(`/watch?id=${_videoId}`, {
+                    // state: { videoId: _videoId },
+                });
+            }}
+        >
             <Box className="videos-list__item-preview">
                 <Image
                     className="videos-list__item-thumbnail"
@@ -150,6 +165,7 @@ const VideosListItem = ({ video }) => {
                 </Box>
             </Flex>
         </Box>
+        // </Link>
     );
 };
 

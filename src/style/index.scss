@@ -1,6 +1,16 @@
 @import url('./reset.scss');
 @import '/src/style/variables.scss';
 
+.main-content{
+    // padding-bottom: $header-height;
+    width: 100%;
+    max-height: 100%;
+    // margin-top: $header-height;
+    // margin: $header-height + $categories-height 0px 0px $navbar-width;
+    margin: $header-height 0px 0px $navbar-width;
+    // overflow-y: auto;
+}
+
 .portal{
     position: fixed;
     right: 20px;

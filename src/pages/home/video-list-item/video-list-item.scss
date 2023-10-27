@@ -1,20 +1,21 @@
 @import '/src/style/variables.scss';
 
 .videos-list__item{
-    margin: 5px 5px 20px;
+    // margin: 5px 5px 20px;
     padding: 5px;
     border-radius: 6px;
     cursor: pointer;
-    max-width: 320px;
+    // max-width: 320px;
+    width: 100%;
     
     &-thumbnail{
-        width: 320px;
-        height: 180px;
+        // width: 320px;
+        // height: 180px;
         border-radius: 6px;
     }
 
     &-title{
-        color: #ffffff ;
+        color: #ffffff;
     }
 
     &-info{
@@ -32,6 +33,7 @@
         bottom: 4px;
         font-size: 12px;
         background: rgba(0, 0, 0, 0.8);
+        color: #ffffff;
         padding: 2px 5px;
         border-radius: 5px;
     }

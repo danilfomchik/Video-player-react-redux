@@ -37,6 +37,8 @@ const VideosList = () => {
         onPageChange(wrapperRef);
 
         dispatch(fetchVideos({ nextPageToken, currentCategory, searchValue }));
+
+        return () => dispatch(resetVideosList());
     }, [currentCategory, searchValue]);
 
     const itemRefs = useRef([]);

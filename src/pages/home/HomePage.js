@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useLocation, useSearchParams } from "react-router-dom";
+import {
+    useLocation,
+    useSearchParams,
+    useOutlet,
+    Outlet,
+} from "react-router-dom";
 
 import { Box } from "@chakra-ui/react";
 
@@ -8,9 +13,8 @@ import ErrorBoundary from "../../components/ErrorBoundary";
 import VideosList from "./videos-list/VideosList";
 import CategoriesFilter from "./categories-filter/CategoriesFilter";
 
-import "./home-page.scss";
-
 const HomePage = () => {
+    const outlet = useOutlet();
     const [searchParams, setSearchParams] = useSearchParams();
 
     const dispatch = useDispatch();
@@ -34,22 +38,29 @@ const HomePage = () => {
     }, [searchValue, currentCategory]);
 
     return (
-        <Box color="white" className="main-content">
+        <>
             <CategoriesFilter />
             <section>
                 <ErrorBoundary fallback={<div>Something went wrong</div>}>
                     <VideosList />
                 </ErrorBoundary>
             </section>
-        </Box>
+        </>
     );
 };
 
 export default HomePage;
 
-// использовать useSearchParams router-dom для сохранения категории в юрл адресе
-// https://www.youtube.com/watch?v=ukpgxEemXsk&ab_channel=ByteGrad
-// (попробовать, не факт что будет в проекте)
+// при переходе на страницу с видео - а потом серче редирект перебрасывает на хоум пейдж но категория сохраняется. СДЕЛАТЬ ТАК, ЧТОБЫ КОГДА У НАС ОТКРЫТА СТРАНИЦА С ВИДЕО И МЫ ДЕЛАЛИ СЕРЧ - КАТЕГОРИЯ СБРАСЫВАЛАСЬ
+
+// при клике на главную иконку перебрасывать на начальную страницу сбрасывая все ильтры и тд.
+
+// при клике на саджешен сначала срабатывает блюр, изза этого запрос не уходит и серч не меняеся
+
+// ---------------------
+
+// компонент библиотеки
+// добавление видео и канала в библиотеку
 
 // создать компонент ошибки (для эрор баундери, ошибок и тд)
 // компонент ошибки должен принимать сообщение, например для fallback в ErrorBoundary одно сообщение, а для пустого списка с видео - другое

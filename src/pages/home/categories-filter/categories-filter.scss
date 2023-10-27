@@ -6,13 +6,10 @@
     min-width: 250px;
 
     position: fixed;
-    z-index: 100;
+    z-index: 1;
 }
 
 .categories-filter__inner{
-    // position: fixed;
-    // margin: $header-height 0px 0px $navbar-width;
-    // z-index: 100;
     background: #121214;
 
     width: 100%;

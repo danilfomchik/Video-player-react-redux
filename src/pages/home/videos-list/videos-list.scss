@@ -3,11 +3,18 @@
 .videos-list{
     // margin: 72px 0px 0px 120px;
     // max-width: calc(100% - $navbar-width);
+    display: grid;
+    justify-content: center;
+    align-items: start;
+    justify-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+    gap: 2rem 1rem;
+    
     padding: 72px 10px 10px 10px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    flex-direction: row;
+    // display: flex;
+    // flex-wrap: wrap;
+    // justify-content: space-evenly;
+    // flex-direction: row;
 }
 
 .item-enter {

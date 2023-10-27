@@ -1,14 +1,18 @@
 const httpRequest = () => {
-    const request = async (
+    const request = async ({
         url,
+        signal = null,
         method = "GET",
         body = null,
-        headers = { "Content-Type": "application/json" }
-    ) => {
-        // throw new Error();
-
+        headers = { "Content-Type": "application/json" },
+    }) => {
         try {
-            const response = await fetch(url, { method, body, headers });
+            const response = await fetch(url, {
+                signal,
+                method,
+                body,
+                headers,
+            });
 
             if (!response.ok) {
                 console.log("error");
@@ -16,9 +20,7 @@ const httpRequest = () => {
                     `Could not fetch ${url}, status: ${response.status}`
                 );
             }
-
             const data = await response.json();
-
             return data;
         } catch (e) {
             throw e;

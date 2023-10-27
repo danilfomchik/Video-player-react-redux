@@ -22,6 +22,7 @@
         cursor: pointer;
 
         &_active{
+            pointer-events: none;
             background: $active-item-bg;
             color: $nav-active-item-color;
         }

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import qs from "query-string";
 
-import { changeCurrentCategory } from "../../../pages/home-page/categories-filter/categoriesSlice";
+import { changeCurrentCategory } from "../../../pages/home/categories-filter/categoriesSlice";
 
 const { searchQuery } = qs.parse(document.location.search);
 

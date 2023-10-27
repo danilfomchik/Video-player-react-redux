@@ -18,9 +18,9 @@ export const fetchCategories = createAsyncThunk(
     () => {
         const { request } = httpRequest();
 
-        return request(
-            `${BASE_URL}/videoCategories?part=snippet&regionCode=UA&key=${API_KEY}`
-        );
+        return request({
+            url: `${BASE_URL}/videoCategories?part=snippet&regionCode=UA&key=${API_KEY}`,
+        });
     }
 );
 
