@@ -1,4 +1,5 @@
 @import '/src/style/variables.scss';
+@import '/src/style/mixins.scss';
 
 .videos-list__item{
     // margin: 5px 5px 20px;
@@ -12,13 +13,16 @@
         // width: 320px;
         // height: 180px;
         border-radius: 6px;
+        width: 100%;
     }
 
     &-title{
         color: #ffffff;
+        @include ellipsis-with-line-camp(2);
     }
 
     &-info{
+        width: calc(88% - 0.5rem);
         padding: 0px 0px 0px 5px;
         color: $video-info-color;
     }
@@ -38,8 +42,13 @@
         border-radius: 5px;
     }
 
+    &-channel{
+        width: 11%;
+    }
+
     &_channel-name{
         padding: 8px 0px 4px;
+        @include ellipsis-with-line-camp(1);
     }
 
     &:hover{

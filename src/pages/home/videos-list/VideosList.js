@@ -7,22 +7,29 @@ import { Box } from "@chakra-ui/react";
 import VideosListItem from "../video-list-item/VideosListItem";
 import Portal from "../../../components/Portal";
 import StatusMessage from "../../../components/StatusMessage";
-import VideoSkeleton from "../../../components/skeletons/VideoSkeleton";
+import VideoSkeleton from "../../../components/skeleton/VideoSkeleton";
 
 import { videosCount } from "../../../utils/constants";
 import { fetchVideos, resetVideosList } from "./videosSlice";
 import { resetSearchValue } from "../../../app/header/search/searchSlice";
 
-import skeletonList from "../../../components/skeletons/skeletonList";
+import skeletonList from "../../../components/skeleton/skeletonList";
 
 import { onPageChange } from "../../../utils/helpers";
+
+import { videosSelector } from "./videosSlice";
 
 import "./videos-list.scss";
 
 const VideosList = () => {
     const dispatch = useDispatch();
 
-    const videos = useSelector((state) => state.videos.videos);
+    // filtered videos (more then 60sec)
+    const videos = useSelector(videosSelector);
+
+    // general list of videos
+    // const videos = useSelector((state) => state.videos.videos);
+
     const videosFetchStatus = useSelector(
         (state) => state.videos.videosFetchStatus
     );
@@ -59,14 +66,16 @@ const VideosList = () => {
                     )
                 }
                 hasMore={nextPageToken ? true : false}
-                scrollThreshold={0.97}
+                scrollThreshold={0.95}
             >
                 <Box className="videos-list">
                     {nextPageToken === "" &&
                         videos.length < videosCount &&
                         skeletonList}
 
-                    {videos.length > 0 ? (
+                    {videos.length < 0 && videosFetchStatus !== "loading" ? (
+                        <p>Nothing to show...</p>
+                    ) : (
                         <TransitionGroup component={null} appear={true}>
                             {videos.map((video, index) => (
                                 <CSSTransition
@@ -80,8 +89,6 @@ const VideosList = () => {
                                 </CSSTransition>
                             ))}
                         </TransitionGroup>
-                    ) : (
-                        <p>Nothing to show...</p>
                     )}
                 </Box>
             </InfiniteScroll>

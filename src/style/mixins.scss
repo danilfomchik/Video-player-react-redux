@@ -1,0 +1,12 @@
+@mixin ellipsis() {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+@mixin ellipsis-with-line-camp($line-camp) {
+    display: -webkit-box;
+    -webkit-line-clamp: $line-camp;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

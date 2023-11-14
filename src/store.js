@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import { videosApi } from "./api/videosApi";
+import { api } from "./api/api";
 
 import search from "../src/app/header/search/searchSlice";
 import videos from "../src/pages/home/videos-list/videosSlice";
@@ -11,11 +12,11 @@ const store = configureStore({
         videos,
         categories,
         search,
-        [videosApi.reducerPath]: videosApi.reducer,
+        [api.reducerPath]: api.reducer,
     },
     devTools: process.env.NODE_ENV !== "production",
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(videosApi.middleware),
+        getDefaultMiddleware().concat(api.middleware),
 });
 
 export default store;

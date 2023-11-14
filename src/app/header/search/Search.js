@@ -56,14 +56,11 @@ const Search = () => {
                     onChange={(e) => setValue(e.target.value)}
                     onFocus={() => setIsFocus(true)}
                     onBlur={(e) => {
-                        // document.addEventListener("click", (e) => {
-                        //     console.log(e.target, "blur");
-                        // });
-                        setIsFocus(false);
-                        // setTimeout(() => {
-                        //     setIsFocus(false);
-                        // }, 200);
+                        setTimeout(() => {
+                            setIsFocus(false);
+                        }, 200);
                     }}
+                    name="search-input"
                 />
 
                 <Box

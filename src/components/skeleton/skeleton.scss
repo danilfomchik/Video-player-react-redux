@@ -1,0 +1,25 @@
+.videos-list__item-channel{
+    .chakra-avatar{
+        background-color: #909192;
+    }
+
+    svg{
+        color: #909192;
+    }
+}
+
+.skeleton {
+    animation: pulse 1.5s ease-in-out .5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1
+    }
+    50% {
+        opacity: .4
+    }
+    100% {
+        opacity: 1
+    }
+}

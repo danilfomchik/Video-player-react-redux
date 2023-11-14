@@ -44,7 +44,12 @@ function App() {
                                 />
                                 <Route
                                     path="/shorts"
-                                    element={<Box color="white">shorts</Box>}
+                                    element={
+                                        <Box color="white">
+                                            shorts, проверять видео на длину
+                                            (должно быть меньше 60 сек)
+                                        </Box>
+                                    }
                                 />
                                 <Route path="*" element={<Page404 />} />
                             </Routes>
