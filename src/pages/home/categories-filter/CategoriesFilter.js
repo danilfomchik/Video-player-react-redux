@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useTransition } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import qs from "query-string";
@@ -15,6 +15,7 @@ import { resetSearchValue } from "../../../app/header/search/searchSlice";
 import "./categories-filter.scss";
 
 const CategoriesFilter = () => {
+    const [isPending, startTransition] = useTransition();
     const dispatch = useDispatch();
 
     const categories = useSelector((state) => state.categories.categories);
@@ -32,6 +33,13 @@ const CategoriesFilter = () => {
         // return () => dispatch(changeCurrentCategory("0"));
     }, []);
 
+    const onCategoryChange = (newCategory) => {
+        dispatch(resetSearchValue());
+        startTransition(() => {
+            dispatch(changeCurrentCategory(newCategory));
+        });
+    };
+
     const containerRef = useRef(null);
 
     const { events } = useScrollOnDrag(containerRef);
@@ -48,10 +56,7 @@ const CategoriesFilter = () => {
                         className={`categories-filter__item${
                             currentCategory === "0" ? " active" : ""
                         }`}
-                        onClick={() => {
-                            dispatch(resetSearchValue());
-                            dispatch(changeCurrentCategory("0"));
-                        }}
+                        onClick={() => onCategoryChange("0")}
                     >
                         <span>All</span>
                     </div>
@@ -69,12 +74,7 @@ const CategoriesFilter = () => {
                                         ? " active"
                                         : ""
                                 }`}
-                                onClick={() => {
-                                    dispatch(resetSearchValue());
-                                    dispatch(
-                                        changeCurrentCategory(category.id)
-                                    );
-                                }}
+                                onClick={() => onCategoryChange(category.id)}
                             >
                                 <span>{title}</span>
                             </div>

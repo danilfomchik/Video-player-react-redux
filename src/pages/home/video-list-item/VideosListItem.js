@@ -45,10 +45,12 @@ const VideosListItem = ({ video }) => {
         isFetching: isVideoInfoFetching,
     } = useGetVideoInfoQuery(_videoId, { refetchOnReconnect: true });
 
-    const seconds = moment
-        .duration(videoInfo?.items[0]?.contentDetails?.duration)
-        .asSeconds();
-    const _duration = moment.utc(seconds * 1000).format("mm:ss");
+    const givenDuration = videoInfo?.items[0]?.contentDetails?.duration;
+
+    const seconds = moment.duration(givenDuration).asSeconds();
+    const _duration = moment
+        .utc(seconds * 1000)
+        .format(givenDuration?.includes("H") ? "h:mm:ss" : "mm:ss");
 
     return (
         <Box

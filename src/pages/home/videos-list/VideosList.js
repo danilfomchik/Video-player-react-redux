@@ -73,8 +73,8 @@ const VideosList = () => {
                         videos.length < videosCount &&
                         skeletonList}
 
-                    {videos.length < 0 && videosFetchStatus !== "loading" ? (
-                        <p>Nothing to show...</p>
+                    {videos.length === 0 && videosFetchStatus === "idle" ? (
+                        <p style={{ color: "#ffffff" }}>Nothing to show...</p>
                     ) : (
                         <TransitionGroup component={null} appear={true}>
                             {videos.map((video, index) => (
