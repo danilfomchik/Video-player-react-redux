@@ -9,7 +9,7 @@ import { faMagnifyingGlass, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 import SuggestionsDropDown from "../suggestionsDropDown/SuggestionsDropDown";
 
-import { resetVideosList } from "../../../pages/home/videos-list/videosSlice";
+import { resetVideosList } from "../../../pages/home/videosSlice";
 import { onSearch, resetSearchValue } from "./searchSlice";
 
 const Search = () => {
@@ -27,6 +27,8 @@ const Search = () => {
     useEffect(() => {
         const { searchQuery } = qs.parse(document.location.search);
 
+        // console.log(decodeURI(searchQuery));
+
         if (searchQuery) {
             setValue(searchQuery);
         }
@@ -42,7 +44,9 @@ const Search = () => {
 
                     if (searchValue !== value) {
                         navigate(`/`);
-                        dispatch(onSearch(inputRef.current.value));
+                        dispatch(
+                            onSearch(encodeURIComponent(inputRef.current.value))
+                        );
                     }
                 }}
             >

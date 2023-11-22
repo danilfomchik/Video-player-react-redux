@@ -1,8 +1,6 @@
-import React from "react";
-import { Box, Flex, Heading, Text, Avatar } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import moment from "moment";
-
-import VideoDescriptionSkeleton from "../../../components/skeleton/video/VideoDescriptionSkeleton";
+import VideoDescriptionSkeleton from "./VideoDescriptionSkeleton";
 
 const VideoDescription = ({ channelInfo, videoInfo, isLoading }) => {
     return (
@@ -10,21 +8,7 @@ const VideoDescription = ({ channelInfo, videoInfo, isLoading }) => {
             {isLoading ? (
                 <VideoDescriptionSkeleton />
             ) : (
-                <Flex padding="16px 5px 0px" style={{ gap: "0.5rem" }}>
-                    <Box
-                        id={channelInfo?.items[0]?.id}
-                        className="videos-list__item-channel"
-                    >
-                        <Avatar
-                            bg="#E11D48"
-                            boxSize="35px"
-                            name={channelInfo?.items[0]?.snippet?.title}
-                            src={
-                                channelInfo?.items[0]?.snippet?.thumbnails
-                                    ?.default?.url
-                            }
-                        />
-                    </Box>
+                <Flex className="video-description">
                     <Box className="videos-list__item-info">
                         <Heading
                             className="videos-list__item-title"
@@ -39,7 +23,10 @@ const VideoDescription = ({ channelInfo, videoInfo, isLoading }) => {
                         >
                             {channelInfo?.items[0]?.snippet?.title}
                         </Text>
-                        <Text fontSize="sm">
+                        <Text
+                            className="videos-list__item-statistics"
+                            fontSize="sm"
+                        >
                             <span>
                                 {Intl.NumberFormat("en", {
                                     notation: "compact",

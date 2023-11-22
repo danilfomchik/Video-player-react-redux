@@ -7,7 +7,7 @@ import useScrollOnDrag from "react-scroll-ondrag";
 
 import { enableHorizontalScroll } from "../../../utils/helpers";
 
-import { resetVideosList } from "../videos-list/videosSlice";
+import { resetVideosList } from "../videosSlice";
 import { fetchCategories, changeCurrentCategory } from "./categoriesSlice";
 
 import { resetSearchValue } from "../../../app/header/search/searchSlice";

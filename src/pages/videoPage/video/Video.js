@@ -5,8 +5,6 @@ import { Avatar } from "@chakra-ui/react";
 import LikeSvg from "./LikeSvg";
 import SaveSvg from "./SaveSvg";
 
-import useDataFetching from "../../../hooks/useDataFetching";
-
 import { API_KEY } from "../../../utils/constants";
 
 import "./video.scss";
@@ -33,7 +31,7 @@ const Video = ({ videoInfo, id }) => {
             <Box className="video-player">
                 <iframe
                     className="video-iframe"
-                    src={`https://www.youtube.com/embed/${id}?autoplay=1&modestbranding=1&rel=0`}
+                    src={`https://www.youtube.com/embed/${id}?autoplay=1&modestbranding=1&rel=0&start=1`}
                     title={videoTitle}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
                 ></iframe>

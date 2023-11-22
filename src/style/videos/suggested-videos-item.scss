@@ -1,0 +1,38 @@
+.suggested-videos-list__item{
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 5px;
+
+    .video-description{
+        padding: 0px 5px 0px;
+        gap: 0.5rem;
+        grid-column: span 7/span 7;
+    }
+
+    .skeleton{
+        grid-column: span 7/span 7;
+    }
+
+    .videos-list__item{
+        &-preview{
+            grid-column: span 5/span 5;
+        }
+        
+        &-title{
+            font-size: 14px;
+        }
+
+        &_channel-name, &-statistics{
+            font-size: 12px;
+        }
+
+        &-duration{
+            padding: 0px 5px 0px;
+        }
+
+        &-info{
+            width: 100%;
+        }
+    }
+
+}

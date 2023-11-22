@@ -1,7 +1,7 @@
 import React from "react";
 import { Image } from "@chakra-ui/react";
 
-import previewSkeleton from "./preview-skeleton.png";
+import previewSkeleton from "../preview-skeleton.png";
 
 const VideoPreviewSkeleton = () => {
     return (

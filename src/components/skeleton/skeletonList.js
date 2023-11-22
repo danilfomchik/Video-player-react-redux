@@ -1,4 +1,4 @@
-import VideoSkeleton from "./VideoSkeleton";
+import VideoSkeleton from "./video/VideoSkeleton";
 
 let skeletonList = [];
 

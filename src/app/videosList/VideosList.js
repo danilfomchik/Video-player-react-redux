@@ -1,23 +1,27 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Box } from "@chakra-ui/react";
 
-import VideosListItem from "../video-list-item/VideosListItem";
-import Portal from "../../../components/Portal";
-import StatusMessage from "../../../components/StatusMessage";
-import VideoSkeleton from "../../../components/skeleton/VideoSkeleton";
+import VideosListItemLayout from "../videosListItem/VideosListItemLayout";
+import VideoDescription from "../../pages/home/video-list-item/VideoDescription";
+import withListItem from "../videosListItem/withListItem";
 
-import { videosCount } from "../../../utils/constants";
-import { fetchVideos, resetVideosList } from "./videosSlice";
-import { resetSearchValue } from "../../../app/header/search/searchSlice";
+import Portal from "../../components/Portal";
+import StatusMessage from "../../components/StatusMessage";
 
-import skeletonList from "../../../components/skeleton/skeletonList";
+import { videosCount } from "../../utils/constants";
+import { onPageChange } from "../../utils/helpers";
 
-import { onPageChange } from "../../../utils/helpers";
+// в будующем оптимизировать этот момент
+import {
+    fetchVideos,
+    resetVideosList,
+    videosSelector,
+} from "../../pages/home/videosSlice";
 
-import { videosSelector } from "./videosSlice";
+import skeletonList from "../../components/skeleton/skeletonList";
 
 import "./videos-list.scss";
 
@@ -50,6 +54,8 @@ const VideosList = () => {
 
     const itemRefs = useRef([]);
     const wrapperRef = useRef(null);
+
+    const VideosListItem = withListItem(VideosListItemLayout, VideoDescription);
 
     return (
         <>
@@ -85,7 +91,11 @@ const VideosList = () => {
                                     mountOnEnter={true}
                                     classNames="item"
                                 >
-                                    <VideosListItem key={index} video={video} />
+                                    <VideosListItem
+                                        key={index}
+                                        video={video}
+                                        type="listOfVideos"
+                                    />
                                 </CSSTransition>
                             ))}
                         </TransitionGroup>

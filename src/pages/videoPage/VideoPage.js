@@ -14,11 +14,9 @@ import qs from "query-string";
 import httpRequest from "../../utils/httpRequest";
 import { BASE_URL, API_KEY } from "../../utils/constants";
 
-import useDataFetching from "../../hooks/useDataFetching";
-
 import Video from "./video/Video";
 import Comments from "./comments/Comments";
-import SuggestedVideos from "./suggestedVideos/SuggestedVideos";
+import RelatedVideos from "./relatedVideos/RelatedVideos";
 
 import "./video-page.scss";
 
@@ -61,7 +59,7 @@ const VideoPage = () => {
                         </TabPanels>
                     </Tabs>
                 </Box>
-                <SuggestedVideos query={title} />
+                <RelatedVideos query={title} />
             </Box>
         </section>
     );

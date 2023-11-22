@@ -1,6 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL, API_KEY, videosCount } from "../utils/constants";
 
+// топ статья для ртк квери https://habr.com/ru/companies/alfa/articles/705640/
+
 export const api = createApi({
     reducerPath: "api",
     baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
@@ -15,18 +17,20 @@ export const api = createApi({
                 `/channels?part=snippet,contentDetails,statistics&id=${channelId}&key=${API_KEY}`,
             providesTags: ["ChannelInfo"],
         }),
-        getSuggestedVideos: builder.query({
+        getRelatedVideos: builder.query({
             query: (query) =>
-                `/search?part=snippet&maxResults=8&type=video&q=${
+                `/search?part=snippet&maxResults=16&type=video&q=${
                     query || ""
                 }&order=viewCount&videoDuration=medium&key=${API_KEY}`,
-            providesTags: ["SuggestedVideos"],
+            providesTags: ["RelatedVideos"],
         }),
     }),
 });
 
+// https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=0S3Bzw-n2e4&type=video&key=AIzaSyD5M3tfBDKqVJTjCPS6yOMa9LBlDQvIjGI
+
 export const {
-    useGetSuggestedVideosQuery,
+    useGetRelatedVideosQuery,
     useGetChannelInfoQuery,
     useGetVideoInfoQuery,
 } = api;

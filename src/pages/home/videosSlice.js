@@ -5,12 +5,19 @@ import {
 } from "@reduxjs/toolkit";
 import moment from "moment";
 
-import { onSearch } from "../../../app/header/search/searchSlice";
-import { changeCurrentCategory } from "../categories-filter/categoriesSlice";
+import { onSearch } from "../../app/header/search/searchSlice";
+import { changeCurrentCategory } from "./categories-filter/categoriesSlice";
 
-import httpRequest from "../../../utils/httpRequest";
+import httpRequest from "../../utils/httpRequest";
 
-import { BASE_URL, API_KEY, videosCount } from "../../../utils/constants";
+import { BASE_URL, API_KEY, videosCount } from "../../utils/constants";
+
+// фильтрация полей в юрл
+// https://youtube.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&fields=items(snippet(title,description,tags,categoryId),statistics(viewCount))&id=0S3Bzw-n2e4&key=AIzaSyD5M3tfBDKqVJTjCPS6yOMa9LBlDQvIjGI
+
+// fields=items/id,playlistItems/snippet/title,playlistItems/snippet/position
+// fields=items(id,snippet/title,snippet/position)
+// fields=items(id,snippet(title,position))
 
 const initialState = {
     videos: [],

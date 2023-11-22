@@ -1,17 +1,13 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-    useLocation,
-    useSearchParams,
-    useOutlet,
-    Outlet,
-} from "react-router-dom";
+import { useSearchParams, useOutlet } from "react-router-dom";
 
-import { Box } from "@chakra-ui/react";
+import CategoriesFilter from "./categories-filter/CategoriesFilter";
+import VideosList from "../../app/videosList/VideosList";
 
 import ErrorBoundary from "../../components/ErrorBoundary";
-import VideosList from "./videos-list/VideosList";
-import CategoriesFilter from "./categories-filter/CategoriesFilter";
+
+import "../../app/videosList/VideosList";
 
 const HomePage = () => {
     const outlet = useOutlet();

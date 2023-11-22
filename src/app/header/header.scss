@@ -34,6 +34,10 @@
         position: relative;
         // margin: 0px 50px;
 
+        input{
+            padding: 0px calc(8% + 10px + 15px) 0px 0px;
+        }
+
         .form-controlls{
             position: absolute;
             right: 10px;

@@ -1,5 +1,7 @@
 @import url('./reset.scss');
-@import '/src/style/variables.scss';
+@import './variables.scss';
+@import './videos/suggested-videos-item.scss';
+@import './videos/video-list-item.scss';
 
 .main-content{
     // padding-bottom: $header-height;
