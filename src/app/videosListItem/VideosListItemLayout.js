@@ -1,7 +1,10 @@
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Box, Text } from "@chakra-ui/react";
 
 import VideoPreview from "./VideoPreview";
+
+import { api } from "../../api/api";
 
 const VideosListItemLayout = ({
     VideoDescription,
@@ -13,6 +16,7 @@ const VideosListItemLayout = ({
     isVideoInfoLoading,
     duration,
 }) => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     let classList = "videos-list__item";
@@ -26,6 +30,7 @@ const VideosListItemLayout = ({
             className={classList}
             id={videoId}
             onClick={() => {
+                dispatch(api.util.resetApiState());
                 navigate(`/watch?id=${videoId}`, {
                     state: {
                         video: videoInfo.items[0],

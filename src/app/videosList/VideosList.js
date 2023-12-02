@@ -12,7 +12,7 @@ import Portal from "../../components/Portal";
 import StatusMessage from "../../components/StatusMessage";
 
 import { videosCount } from "../../utils/constants";
-import { onPageChange } from "../../utils/helpers";
+import { scrollToTop } from "../../utils/helpers";
 
 // в будующем оптимизировать этот момент
 import {
@@ -45,7 +45,7 @@ const VideosList = () => {
     const searchValue = useSelector((state) => state.search.searchValue);
 
     useEffect(() => {
-        onPageChange(wrapperRef);
+        scrollToTop(wrapperRef);
 
         dispatch(fetchVideos({ nextPageToken, currentCategory, searchValue }));
 

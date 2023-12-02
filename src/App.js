@@ -40,7 +40,14 @@ function App() {
 
                                 <Route
                                     path="library"
-                                    element={<Box color="white">library</Box>}
+                                    element={
+                                        <Box color="white">
+                                            подключить firebase (хранилище для
+                                            данных + аутентификация и тд)
+                                            ---------
+                                            https://www.youtube.com/watch?v=c9A2TfGKmxE&list=PLQKg8mIgoxKraMfKckMux0tLJfQEivnKv
+                                        </Box>
+                                    }
                                 />
                                 <Route
                                     path="/shorts"

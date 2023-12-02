@@ -1,11 +1,9 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
-import { onSearch } from "../search/searchSlice";
 import httpRequest from "../../../utils/httpRequest";
 
 import { SUGGESTIONS_URL } from "../../../utils/constants";
@@ -16,7 +14,6 @@ const SuggestionsDropDown = ({ isVisible, query, setValue, setVisibility }) => {
     const navigate = useNavigate();
     const [suggestions, setSuggestions] = useState([]);
 
-    const dispatch = useDispatch();
     const { request } = httpRequest();
 
     useEffect(() => {
@@ -36,7 +33,6 @@ const SuggestionsDropDown = ({ isVisible, query, setValue, setVisibility }) => {
 
     const onSuggestionClick = (suggestion) => {
         setValue(suggestion);
-        dispatch(onSearch(suggestion));
         setVisibility(false);
     };
 
@@ -48,18 +44,18 @@ const SuggestionsDropDown = ({ isVisible, query, setValue, setVisibility }) => {
             // className={"suggestions__drop-down active"}
         >
             {suggestions.map((suggestion, index) => (
-                <div
+                <button
+                    type="submit"
                     className="suggestions__item"
                     key={index}
-                    onClick={() => {
-                        console.log("click");
+                    onClick={(e) => {
                         onSuggestionClick(suggestion);
                         navigate(`/`);
                     }}
                 >
                     <FontAwesomeIcon icon={faMagnifyingGlass} />
                     <p className="suggestion">{suggestion}</p>
-                </div>
+                </button>
             ))}
         </div>
     );

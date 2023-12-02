@@ -1,4 +1,4 @@
-export const onPageChange = (searchRef) => {
+export const scrollToTop = (searchRef) => {
     searchRef.current.scrollIntoView({
         block: "center",
         behavior: "smooth",

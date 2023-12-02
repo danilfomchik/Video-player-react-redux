@@ -45,7 +45,8 @@ const Search = () => {
                     if (searchValue !== value) {
                         navigate(`/`);
                         dispatch(
-                            onSearch(encodeURIComponent(inputRef.current.value))
+                            onSearch(inputRef.current.value)
+                            // onSearch(encodeURIComponent(inputRef.current.value))
                         );
                     }
                 }}
@@ -62,7 +63,7 @@ const Search = () => {
                     onBlur={(e) => {
                         setTimeout(() => {
                             setIsFocus(false);
-                        }, 200);
+                        }, 100);
                     }}
                     name="search-input"
                 />
@@ -92,14 +93,14 @@ const Search = () => {
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                     </button>
                 </Box>
-            </form>
 
-            <SuggestionsDropDown
-                isVisible={isFocus}
-                setVisibility={setIsFocus}
-                query={value}
-                setValue={setValue}
-            />
+                <SuggestionsDropDown
+                    isVisible={isFocus}
+                    setVisibility={setIsFocus}
+                    query={value}
+                    setValue={setValue}
+                />
+            </form>
         </div>
     );
 };

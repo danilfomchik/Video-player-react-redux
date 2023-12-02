@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
 import {
     Box,
@@ -11,8 +11,7 @@ import {
 } from "@chakra-ui/react";
 import qs from "query-string";
 
-import httpRequest from "../../utils/httpRequest";
-import { BASE_URL, API_KEY } from "../../utils/constants";
+import { scrollToTop } from "../../utils/helpers";
 
 import Video from "./video/Video";
 import Comments from "./comments/Comments";
@@ -31,8 +30,15 @@ const VideoPage = () => {
         },
     } = videoInfo;
 
+    const wrapperRef = useRef(null);
+
+    useEffect(() => {
+        scrollToTop(wrapperRef);
+    }, [videoId]);
+
     return (
         <section>
+            <div ref={wrapperRef}></div>
             <Box className="video-page">
                 <Box className="video-column">
                     {/*сделать скелетон при загрузке  */}
@@ -59,7 +65,7 @@ const VideoPage = () => {
                         </TabPanels>
                     </Tabs>
                 </Box>
-                <RelatedVideos query={title} />
+                <RelatedVideos videoId={videoId} query={title} />
             </Box>
         </section>
     );

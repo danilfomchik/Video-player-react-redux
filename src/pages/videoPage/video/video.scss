@@ -8,6 +8,7 @@
     // // height: 50vh;
     // height: calc(100% - $header-height - 55px);
     color: #ffffff;
+    padding: 5px 0px 0px;
 
     &-iframe{
         width: 100%;
@@ -16,7 +17,7 @@
     }
 
     &-player{
-        height: 70vh;
+        aspect-ratio: 4/2.5;
     }
 
     &-title{
