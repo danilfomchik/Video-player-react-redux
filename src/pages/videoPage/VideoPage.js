@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
-import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import {
     Box,
     Tabs,
@@ -11,6 +12,8 @@ import {
 } from "@chakra-ui/react";
 import qs from "query-string";
 
+import { relatedVideosApi } from "../../api/relatedVideosApi";
+
 import { scrollToTop } from "../../utils/helpers";
 
 import Video from "./video/Video";
@@ -20,6 +23,7 @@ import RelatedVideos from "./relatedVideos/RelatedVideos";
 import "./video-page.scss";
 
 const VideoPage = () => {
+    const dispatch = useDispatch();
     const { state: videoInfo } = useLocation();
     const { id: videoId } = qs.parse(document.location.search);
 
@@ -34,6 +38,7 @@ const VideoPage = () => {
 
     useEffect(() => {
         scrollToTop(wrapperRef);
+        // dispatch(relatedVideosApi.util.resetApiState());
     }, [videoId]);
 
     return (
@@ -41,7 +46,6 @@ const VideoPage = () => {
             <div ref={wrapperRef}></div>
             <Box className="video-page">
                 <Box className="video-column">
-                    {/*сделать скелетон при загрузке  */}
                     {id && <Video videoInfo={videoInfo} id={videoId} />}
 
                     <Tabs position="relative" variant="unstyled">

@@ -1,13 +1,6 @@
 @import '/src/style/variables.scss';
 
 .video-page{
-    // display: grid;
-    // grid-template-columns: repeat(12,minmax(0,1fr));
-    // column-gap: 2rem;
-    // min-height: calc(100vh - 5px - $header-height);
-    // padding: 25px 10px 24px;
-    // color: #ffffff;
-
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: 2rem;
@@ -15,11 +8,34 @@
     padding: 25px 37px 24px;
     color: #ffffff;
 
+    .activity__btn{
+        min-width: 0;
+        // margin: 0px 10px;
+        // flex-basis: 170px;
+
+        button{
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            text-align: center;
+            border-radius: 20px;
+            background-color: rgba(255,255,255,0.1);
+            padding: 5px 5px;
+            width: 100%;
+            justify-content: center;
+
+            svg{
+                margin: 0px 13px 0px 0px;
+            }
+
+            &:hover{
+                background-color: rgba(255,255,255,0.2);
+            }
+        }
+    }
+
     .video-column{
         grid-column: span 8/span 8;
-        // width: 52vw;
-        // height: 50vh;
-        // height: calc(100% - $header-height - 55px);
     }
 
     .chakra-tabs__tab-panel{

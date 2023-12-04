@@ -2,17 +2,16 @@
 @import '/src/style/mixins.scss';
 
 .videos-list__item{
-    // margin: 5px 5px 20px;
     padding: 5px;
     border-radius: 6px;
     cursor: pointer;
-    // max-width: 320px;
     width: 100%;
     
     &-thumbnail{
         border-radius: 6px;
         width: 100%;
         height: 100%;
+        object-fit: cover;
     }
 
     &-title{

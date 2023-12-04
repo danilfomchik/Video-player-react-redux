@@ -1,16 +1,12 @@
 @import url('./reset.scss');
 @import './variables.scss';
-@import './videos/suggested-videos-item.scss';
-@import './videos/video-list-item.scss';
+@import '../pages/videoPage/relatedVideosItem/related-videos-item.scss';
+@import '../app/videosListItem/video-list-item.scss';
 
 .main-content{
-    // padding-bottom: $header-height;
     width: 100%;
     max-height: 100%;
-    // margin-top: $header-height;
-    // margin: $header-height + $categories-height 0px 0px $navbar-width;
     margin: $header-height 0px 0px $navbar-width;
-    // overflow-y: auto;
 }
 
 .portal{
@@ -37,7 +33,6 @@
 
 *::-webkit-scrollbar {
     width: 7px;
-    // height: 7px;
 }
 *::-webkit-scrollbar-track {
     background: $main-bg-color;

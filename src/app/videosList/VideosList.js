@@ -4,9 +4,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Box } from "@chakra-ui/react";
 
-import VideosListItemLayout from "../videosListItem/VideosListItemLayout";
+import VideosListItem from "../videosListItem/VideosListItem";
 import VideoDescription from "../../pages/home/video-list-item/VideoDescription";
-import withListItem from "../videosListItem/withListItem";
 
 import Portal from "../../components/Portal";
 import StatusMessage from "../../components/StatusMessage";
@@ -45,6 +44,7 @@ const VideosList = () => {
     const searchValue = useSelector((state) => state.search.searchValue);
 
     useEffect(() => {
+        // dispatch(resetVideosList());
         scrollToTop(wrapperRef);
 
         dispatch(fetchVideos({ nextPageToken, currentCategory, searchValue }));
@@ -54,8 +54,6 @@ const VideosList = () => {
 
     const itemRefs = useRef([]);
     const wrapperRef = useRef(null);
-
-    const VideosListItem = withListItem(VideosListItemLayout, VideoDescription);
 
     return (
         <>
@@ -94,7 +92,8 @@ const VideosList = () => {
                                     <VideosListItem
                                         key={index}
                                         video={video}
-                                        type="listOfVideos"
+                                        VideoDescription={VideoDescription}
+                                        type=""
                                     />
                                 </CSSTransition>
                             ))}

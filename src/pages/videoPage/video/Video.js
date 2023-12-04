@@ -75,7 +75,7 @@ const Video = ({ videoInfo, id }) => {
                         }).format(likeCount)}{" "}
                         likes
                     </span>
-                    <Box className="add-to-playlist__btn">
+                    <Box className="activity__btn add-to-library__btn">
                         <button>
                             <SaveSvg />
                             <span>Add to playlist</span>

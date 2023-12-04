@@ -1,6 +1,5 @@
 .related-videos{
     grid-column: span 4/span 4;
-    // padding: 50px 0px 0px;
 
     display: flex;
     flex-direction: column;
@@ -8,6 +7,10 @@
 
     &__item{
         display: flex;
+    }
+
+    .load-more__btn{
+        margin: 20px 0px 0px;
     }
 
     .video-preview{

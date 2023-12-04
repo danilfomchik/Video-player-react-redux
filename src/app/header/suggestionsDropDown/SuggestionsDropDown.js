@@ -50,7 +50,7 @@ const SuggestionsDropDown = ({ isVisible, query, setValue, setVisibility }) => {
                     key={index}
                     onClick={(e) => {
                         onSuggestionClick(suggestion);
-                        navigate(`/`);
+                        // navigate(`/`);
                     }}
                 >
                     <FontAwesomeIcon icon={faMagnifyingGlass} />

@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import qs from "query-string";
 
 import { Input, Box } from "@chakra-ui/react";
@@ -9,8 +9,7 @@ import { faMagnifyingGlass, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 import SuggestionsDropDown from "../suggestionsDropDown/SuggestionsDropDown";
 
-import { resetVideosList } from "../../../pages/home/videosSlice";
-import { onSearch, resetSearchValue } from "./searchSlice";
+import { onSearch } from "./searchSlice";
 
 const Search = () => {
     const navigate = useNavigate();
@@ -27,8 +26,6 @@ const Search = () => {
     useEffect(() => {
         const { searchQuery } = qs.parse(document.location.search);
 
-        // console.log(decodeURI(searchQuery));
-
         if (searchQuery) {
             setValue(searchQuery);
         }
@@ -40,14 +37,12 @@ const Search = () => {
                 ref={formRef}
                 className="header__search"
                 onSubmit={(e) => {
+                    console.log("submit");
                     e.preventDefault();
 
+                    navigate(`/`);
                     if (searchValue !== value) {
-                        navigate(`/`);
-                        dispatch(
-                            onSearch(inputRef.current.value)
-                            // onSearch(encodeURIComponent(inputRef.current.value))
-                        );
+                        dispatch(onSearch(inputRef.current.value));
                     }
                 }}
             >

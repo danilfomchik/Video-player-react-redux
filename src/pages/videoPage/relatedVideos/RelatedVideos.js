@@ -1,30 +1,15 @@
-import React, { memo, useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { Box } from "@chakra-ui/react";
+import React, { memo, useState } from "react";
+import { Box, Spinner } from "@chakra-ui/react";
 
-import img from "../../../assets/icon.png";
-
-import VideosListItemLayout from "../../../app/videosListItem/VideosListItemLayout";
 import VideoDescription from "../relatedVideosItem/VideoDescription";
-import withListItem from "../../../app/videosListItem/withListItem";
+import VideosListItem from "../../../app/videosListItem/VideosListItem";
 
-import httpRequest from "../../../utils/httpRequest";
-
-import { BASE_URL, API_KEY } from "../../../utils/constants";
-import {
-    api,
-    useGetRelatedVideosQuery,
-    useLazyGetRelatedVideosQuery,
-} from "../../../api/api";
+import { useGetRelatedVideosQuery } from "../../../api/relatedVideosApi";
 
 import "./related-videos.scss";
 
-const RelatedVideos = memo(({ videoId, query }) => {
-    const dispatch = useDispatch();
-    // console.log("mount");
-
+const RelatedVideos = memo(({ query }) => {
     const [nextPageToken, setNextPageToken] = useState("");
-    // const [relatedVideos, setRelatedVideos] = useState([]);
 
     const {
         data,
@@ -37,37 +22,38 @@ const RelatedVideos = memo(({ videoId, query }) => {
         nextPageToken,
     });
 
-    useEffect(() => {
-        setNextPageToken("");
-    }, [videoId]);
-
     const relatedVideos = data?.items || [];
 
-    const RelatedVideosItem = withListItem(
-        VideosListItemLayout,
-        VideoDescription
-    );
+    // когда делаю серч с главной страницы категория остается - !!!правильное поведение!!!
+    // НО, когда делаю серч со страницы с видео нужно обнулять категорию
 
     return (
         <Box className="related-videos">
-            {relatedVideos.map((video, index) => (
-                <RelatedVideosItem
-                    key={index}
-                    video={video}
-                    type="relatedVideos"
-                />
-            ))}
+            <div className="related-videos__list">
+                {relatedVideos.map((video, index) => (
+                    <VideosListItem
+                        key={index}
+                        video={video}
+                        VideoDescription={VideoDescription}
+                        type="related"
+                        onItemClick={() => {
+                            setNextPageToken("");
+                        }}
+                    />
+                ))}
+            </div>
 
-            {isFetching && <h1>LOADING...</h1>}
+            {isFetching && <Spinner style={{ margin: "20px auto 0px" }} />}
 
             {relatedVideos.length > 0 && (
-                <button
+                <div
+                    className="activity__btn load-more__btn"
                     onClick={() => {
                         setNextPageToken(data.nextPageToken);
                     }}
                 >
-                    LOAD MORE
-                </button>
+                    <button>LOAD MORE</button>
+                </div>
             )}
         </Box>
     );
