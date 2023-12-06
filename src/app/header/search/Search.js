@@ -1,6 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import {
+    useNavigate,
+    BrowserRouter,
+    Routes,
+    Route,
+    matchRoutes,
+    useLocation,
+} from "react-router-dom";
 import qs from "query-string";
 
 import { Input, Box } from "@chakra-ui/react";
@@ -10,9 +17,11 @@ import { faMagnifyingGlass, faXmark } from "@fortawesome/free-solid-svg-icons";
 import SuggestionsDropDown from "../suggestionsDropDown/SuggestionsDropDown";
 
 import { onSearch } from "./searchSlice";
+import { changeCurrentCategory } from "../../../pages/home/categories-filter/categoriesSlice";
 
 const Search = () => {
     const navigate = useNavigate();
+    const { pathname } = useLocation();
 
     const dispatch = useDispatch();
     const searchValue = useSelector((state) => state.search.searchValue);
@@ -21,7 +30,6 @@ const Search = () => {
     const [isFocus, setIsFocus] = useState(false);
 
     const inputRef = useRef(null);
-    const formRef = useRef(null);
 
     useEffect(() => {
         const { searchQuery } = qs.parse(document.location.search);
@@ -34,13 +42,15 @@ const Search = () => {
     return (
         <div className="header__search">
             <form
-                ref={formRef}
                 className="header__search"
                 onSubmit={(e) => {
-                    console.log("submit");
                     e.preventDefault();
 
-                    navigate(`/`);
+                    if (pathname !== "/") {
+                        dispatch(changeCurrentCategory("0"));
+                        navigate(`/`);
+                    }
+
                     if (searchValue !== value) {
                         dispatch(onSearch(inputRef.current.value));
                     }

@@ -1,15 +1,17 @@
-import React, { memo, useState } from "react";
+import React, { memo, useState, useRef } from "react";
 import { Box, Spinner } from "@chakra-ui/react";
 
-import VideoDescription from "../relatedVideosItem/VideoDescription";
+import VideoDescription from "../relatedVideosItem/RelatedVideosItemDescription";
 import VideosListItem from "../../../app/videosListItem/VideosListItem";
 
 import { useGetRelatedVideosQuery } from "../../../api/relatedVideosApi";
 
 import "./related-videos.scss";
+import { useEffect } from "react";
 
 const RelatedVideos = memo(({ query }) => {
     const [nextPageToken, setNextPageToken] = useState("");
+    const firstRenderRef = useRef(true);
 
     const {
         data,
@@ -24,8 +26,15 @@ const RelatedVideos = memo(({ query }) => {
 
     const relatedVideos = data?.items || [];
 
+    useEffect(() => {
+        if (firstRenderRef.current) {
+            firstRenderRef.current = false;
+        }
+    }, []);
+
     // когда делаю серч с главной страницы категория остается - !!!правильное поведение!!!
     // НО, когда делаю серч со страницы с видео нужно обнулять категорию
+    console.log(data?.pageInfo?.totalResults, relatedVideos.length);
 
     return (
         <Box className="related-videos">
@@ -45,16 +54,17 @@ const RelatedVideos = memo(({ query }) => {
 
             {isFetching && <Spinner style={{ margin: "20px auto 0px" }} />}
 
-            {relatedVideos.length > 0 && (
-                <div
-                    className="activity__btn load-more__btn"
-                    onClick={() => {
-                        setNextPageToken(data.nextPageToken);
-                    }}
-                >
-                    <button>LOAD MORE</button>
-                </div>
-            )}
+            {data?.nextPageToken !== nextPageToken &&
+                relatedVideos.length > 0 && (
+                    <div
+                        className="activity__btn load-more__btn"
+                        onClick={() => {
+                            setNextPageToken(data.nextPageToken);
+                        }}
+                    >
+                        <button>LOAD MORE</button>
+                    </div>
+                )}
         </Box>
     );
 });

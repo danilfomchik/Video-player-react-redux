@@ -14,7 +14,6 @@ const VideosListItem = ({
     VideoDescription,
     type,
     onItemClick = () => {},
-    ...props
 }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();

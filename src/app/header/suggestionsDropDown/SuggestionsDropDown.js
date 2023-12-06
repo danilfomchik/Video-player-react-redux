@@ -32,16 +32,20 @@ const SuggestionsDropDown = ({ isVisible, query, setValue, setVisibility }) => {
     }, [query]);
 
     const onSuggestionClick = (suggestion) => {
+        console.log("click");
         setValue(suggestion);
         setVisibility(false);
     };
+
+    {
+        /* происходит задержка/лаг, когда кликаю на саджешенс лист*/
+    }
 
     return (
         <div
             className={`suggestions__drop-down ${
                 query && isVisible ? "active" : ""
             }`}
-            // className={"suggestions__drop-down active"}
         >
             {suggestions.map((suggestion, index) => (
                 <button

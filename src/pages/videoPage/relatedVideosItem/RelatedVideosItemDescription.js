@@ -1,12 +1,17 @@
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import moment from "moment";
-import VideoDescriptionSkeleton from "./VideoDescriptionSkeleton";
+import RelatedVideosItemDescriptionSkeleton from "./RelatedVideosItemDescriptionSkeleton";
+import VideoStatistics from "../../../components/videoStatistics/VideoStatistics";
 
-const VideoDescription = ({ channelInfo, videoInfo, isLoading }) => {
+const RelatedVideosItemDescription = ({
+    channelInfo,
+    videoInfo,
+    isLoading,
+}) => {
     return (
         <>
             {isLoading ? (
-                <VideoDescriptionSkeleton />
+                <RelatedVideosItemDescriptionSkeleton />
             ) : (
                 <Flex className="video-description">
                     <Box className="videos-list__item-info">
@@ -23,24 +28,16 @@ const VideoDescription = ({ channelInfo, videoInfo, isLoading }) => {
                         >
                             {channelInfo?.items[0]?.snippet?.title}
                         </Text>
-                        <Text
+
+                        <VideoStatistics
+                            viewCount={
+                                videoInfo?.items[0]?.statistics?.viewCount
+                            }
+                            publishedAt={
+                                videoInfo?.items[0]?.snippet?.publishedAt
+                            }
                             className="videos-list__item-statistics"
-                            fontSize="sm"
-                        >
-                            <span>
-                                {Intl.NumberFormat("en", {
-                                    notation: "compact",
-                                }).format(
-                                    +videoInfo?.items[0]?.statistics?.viewCount
-                                )}
-                            </span>{" "}
-                            •{" "}
-                            <span>
-                                {moment(
-                                    videoInfo?.items[0]?.snippet?.publishedAt
-                                ).fromNow()}
-                            </span>
-                        </Text>
+                        />
                     </Box>
                 </Flex>
             )}
@@ -48,4 +45,4 @@ const VideoDescription = ({ channelInfo, videoInfo, isLoading }) => {
     );
 };
 
-export default VideoDescription;
+export default RelatedVideosItemDescription;

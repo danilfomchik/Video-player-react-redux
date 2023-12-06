@@ -5,7 +5,7 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Box } from "@chakra-ui/react";
 
 import VideosListItem from "../videosListItem/VideosListItem";
-import VideoDescription from "../../pages/home/video-list-item/VideoDescription";
+import VideoDescription from "../videosListItem/VideoDescription";
 
 import Portal from "../../components/Portal";
 import StatusMessage from "../../components/StatusMessage";
@@ -44,7 +44,6 @@ const VideosList = () => {
     const searchValue = useSelector((state) => state.search.searchValue);
 
     useEffect(() => {
-        // dispatch(resetVideosList());
         scrollToTop(wrapperRef);
 
         dispatch(fetchVideos({ nextPageToken, currentCategory, searchValue }));

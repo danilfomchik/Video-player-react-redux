@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
@@ -12,8 +12,6 @@ import {
 } from "@chakra-ui/react";
 import qs from "query-string";
 
-import { relatedVideosApi } from "../../api/relatedVideosApi";
-
 import { scrollToTop } from "../../utils/helpers";
 
 import Video from "./video/Video";
@@ -21,16 +19,17 @@ import Comments from "./comments/Comments";
 import RelatedVideos from "./relatedVideos/RelatedVideos";
 
 import "./video-page.scss";
+import VideoStatistics from "../../components/videoStatistics/VideoStatistics";
 
 const VideoPage = () => {
-    const dispatch = useDispatch();
     const { state: videoInfo } = useLocation();
     const { id: videoId } = qs.parse(document.location.search);
 
     const {
         video: {
             id,
-            snippet: { title, description },
+            snippet: { title, description, publishedAt },
+            statistics: { viewCount },
         },
     } = videoInfo;
 
@@ -38,7 +37,6 @@ const VideoPage = () => {
 
     useEffect(() => {
         scrollToTop(wrapperRef);
-        // dispatch(relatedVideosApi.util.resetApiState());
     }, [videoId]);
 
     return (
@@ -61,7 +59,16 @@ const VideoPage = () => {
                         />
                         <TabPanels>
                             <TabPanel style={{ whiteSpace: "pre-wrap" }}>
-                                {description}
+                                <VideoStatistics
+                                    viewCount={viewCount}
+                                    publishedAt={publishedAt}
+                                    style={{
+                                        padding: "0px 0px 20px",
+                                        fontWeight: "bold",
+                                        fontSize: "17px",
+                                    }}
+                                />
+                                <p>{description}</p>
                             </TabPanel>
                             <TabPanel>
                                 <Comments />

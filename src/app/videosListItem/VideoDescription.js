@@ -1,8 +1,8 @@
 import React from "react";
 import { Box, Flex, Heading, Text, Avatar } from "@chakra-ui/react";
-import moment from "moment";
 
-import VideoDescriptionSkeleton from "../../../components/skeleton/video/VideoDescriptionSkeleton";
+import VideoStatistics from "../../components/videoStatistics/VideoStatistics";
+import VideoDescriptionSkeleton from "../../components/skeleton/video/VideoDescriptionSkeleton";
 
 const VideoDescription = ({ channelInfo, videoInfo, isLoading }) => {
     return (
@@ -39,21 +39,15 @@ const VideoDescription = ({ channelInfo, videoInfo, isLoading }) => {
                         >
                             {channelInfo?.items[0]?.snippet?.title}
                         </Text>
-                        <Text fontSize="sm">
-                            <span>
-                                {Intl.NumberFormat("en", {
-                                    notation: "compact",
-                                }).format(
-                                    +videoInfo?.items[0]?.statistics?.viewCount
-                                )}
-                            </span>{" "}
-                            •{" "}
-                            <span>
-                                {moment(
-                                    videoInfo?.items[0]?.snippet?.publishedAt
-                                ).fromNow()}
-                            </span>
-                        </Text>
+
+                        <VideoStatistics
+                            viewCount={
+                                videoInfo?.items[0]?.statistics?.viewCount
+                            }
+                            publishedAt={
+                                videoInfo?.items[0]?.snippet?.publishedAt
+                            }
+                        />
                     </Box>
                 </Flex>
             )}
