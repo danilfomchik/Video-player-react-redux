@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Box, Text } from "@chakra-ui/react";
 import moment from "moment";
 
-import { relatedVideosApi } from "../../api/relatedVideosApi";
+import { relatedVideosApi } from "../../pages/videoPage/relatedVideos/relatedVideosApi";
 
-import { useGetChannelInfoQuery, useGetVideoInfoQuery } from "../../api/api";
+import { useGetChannelInfoQuery, useGetVideoInfoQuery } from "./listItemApi";
 
 import VideoPreview from "./VideoPreview";
 

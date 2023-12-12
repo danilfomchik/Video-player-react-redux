@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Box } from "@chakra-ui/react";
 import { Avatar } from "@chakra-ui/react";
 
-import LikeSvg from "./LikeSvg";
+import LikeSvg from "../LikeSvg";
 import SaveSvg from "./SaveSvg";
 
 import { API_KEY } from "../../../utils/constants";
@@ -68,7 +68,7 @@ const Video = ({ videoInfo, id }) => {
                 </Box>
 
                 <Box className="video-actions">
-                    <LikeSvg />
+                    <LikeSvg width={25} height={25} viewBox={`0 0 25 25`} />
                     <span className="video-likes-count">
                         {Intl.NumberFormat("en", {
                             notation: "compact",

@@ -4,14 +4,13 @@ import { Box, Spinner } from "@chakra-ui/react";
 import VideoDescription from "../relatedVideosItem/RelatedVideosItemDescription";
 import VideosListItem from "../../../app/videosListItem/VideosListItem";
 
-import { useGetRelatedVideosQuery } from "../../../api/relatedVideosApi";
+import { useGetRelatedVideosQuery } from "./relatedVideosApi";
 
 import "./related-videos.scss";
 import { useEffect } from "react";
 
 const RelatedVideos = memo(({ query }) => {
     const [nextPageToken, setNextPageToken] = useState("");
-    const firstRenderRef = useRef(true);
 
     const {
         data,
@@ -25,16 +24,6 @@ const RelatedVideos = memo(({ query }) => {
     });
 
     const relatedVideos = data?.items || [];
-
-    useEffect(() => {
-        if (firstRenderRef.current) {
-            firstRenderRef.current = false;
-        }
-    }, []);
-
-    // когда делаю серч с главной страницы категория остается - !!!правильное поведение!!!
-    // НО, когда делаю серч со страницы с видео нужно обнулять категорию
-    console.log(data?.pageInfo?.totalResults, relatedVideos.length);
 
     return (
         <Box className="related-videos">

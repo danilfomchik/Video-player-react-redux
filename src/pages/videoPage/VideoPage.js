@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
@@ -17,11 +17,16 @@ import { scrollToTop } from "../../utils/helpers";
 import Video from "./video/Video";
 import Comments from "./comments/Comments";
 import RelatedVideos from "./relatedVideos/RelatedVideos";
-
-import "./video-page.scss";
 import VideoStatistics from "../../components/videoStatistics/VideoStatistics";
 
+import { commentsApi } from "./comments/commentsApi";
+
+import "./video-page.scss";
+
 const VideoPage = () => {
+    const dispatch = useDispatch();
+    const [tabIndex, setTabIndex] = useState(0);
+
     const { state: videoInfo } = useLocation();
     const { id: videoId } = qs.parse(document.location.search);
 
@@ -29,14 +34,23 @@ const VideoPage = () => {
         video: {
             id,
             snippet: { title, description, publishedAt },
-            statistics: { viewCount },
+            statistics: { viewCount, commentCount },
         },
     } = videoInfo;
 
     const wrapperRef = useRef(null);
 
+    const handleTabsChange = (index) => {
+        if (tabIndex === 0) {
+            dispatch(commentsApi.util.resetApiState());
+        }
+
+        setTabIndex(index);
+    };
+
     useEffect(() => {
         scrollToTop(wrapperRef);
+        handleTabsChange(0);
     }, [videoId]);
 
     return (
@@ -46,7 +60,13 @@ const VideoPage = () => {
                 <Box className="video-column">
                     {id && <Video videoInfo={videoInfo} id={videoId} />}
 
-                    <Tabs position="relative" variant="unstyled">
+                    <Tabs
+                        position="relative"
+                        variant="unstyled"
+                        index={tabIndex}
+                        onChange={handleTabsChange}
+                        isLazy
+                    >
                         <TabList style={{ borderBottom: "1px solid #29292E" }}>
                             <Tab className="video-description">Description</Tab>
                             <Tab className="video-comments">Comments</Tab>
@@ -62,16 +82,15 @@ const VideoPage = () => {
                                 <VideoStatistics
                                     viewCount={viewCount}
                                     publishedAt={publishedAt}
-                                    style={{
-                                        padding: "0px 0px 20px",
-                                        fontWeight: "bold",
-                                        fontSize: "17px",
-                                    }}
+                                    className="video-statistics__title"
                                 />
                                 <p>{description}</p>
                             </TabPanel>
                             <TabPanel>
-                                <Comments />
+                                <Comments
+                                    commentCount={commentCount}
+                                    videoId={videoId}
+                                />
                             </TabPanel>
                         </TabPanels>
                     </Tabs>

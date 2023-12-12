@@ -4,7 +4,7 @@ import {
     API_KEY,
     RAPIDAPI_KEY,
     videosCount,
-} from "../utils/constants";
+} from "../../../utils/constants";
 
 // топ статья для ртк квери https://habr.com/ru/companies/alfa/articles/705640/
 

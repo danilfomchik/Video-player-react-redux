@@ -1,0 +1,75 @@
+.comment-wrapper{
+    
+}
+
+.comment-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+
+    .author{
+        &-header{
+            display: flex;
+            gap: 5px;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        &-nickname{
+            font-size: 14px;
+        }
+    }
+
+    .comment{
+        &-info{
+            .toolbar{
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 30px;
+                font-size: 13px;
+                color: #aaaaaa;
+
+                div{
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 5px;
+                }
+            }
+
+            .posted-at{
+                font-size: 13px;
+                color: #aaaaaa;
+            }
+        }
+
+        &-body{
+            padding: 5px 0px 10px;
+            font-size: 15px;
+        }
+    }
+}
+
+.chakra-accordion{
+    display: inline-block;
+    margin: 0px 0px 0px 29px;
+
+    &__item{
+        border: none;
+        border-radius: 20px;
+
+        &:hover{
+            // border: 1px solid #ffffff;
+            box-shadow: 0px 0px 0px 1px #ffffff inset;
+        }
+    }
+
+    &__button{
+        color: #3ea6ff;
+        font-weight: bold;
+    }
+}

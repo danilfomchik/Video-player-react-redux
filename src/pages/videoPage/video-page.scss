@@ -36,6 +36,12 @@
 
     .video-column{
         grid-column: span 8/span 8;
+
+        .video-statistics__title{
+            padding: 0px 0px 20px;
+            font-weight: bold;
+            font-size: 17px;
+        }
     }
 
     .chakra-tabs__tab-panel{

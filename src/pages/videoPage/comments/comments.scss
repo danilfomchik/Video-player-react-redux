@@ -1,0 +1,22 @@
+.video-comments{
+    display: flex;
+    flex-direction: column;
+    // gap: 20px;
+
+    &__list{
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        align-items: stretch;
+        gap: 20px;
+    }
+
+    .new-comment__input{
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        gap: 15px;
+
+        padding: 0px 0px 40px;
+    }
+}

@@ -36,6 +36,7 @@
     &-actions{
         min-width: calc(50% - 6px);
         flex: 1 1;
+        gap: 5px;
         flex-basis: 1e-9px;
         display: flex;
         justify-content: flex-end;
