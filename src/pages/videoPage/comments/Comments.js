@@ -23,50 +23,48 @@ const Comments = ({ videoId, commentCount }) => {
 
     const comments = data?.items || [];
 
+    console.log(comments);
+
     return (
-        // <InfiniteScroll
-        // dataLength={comments.length}
-        // next={() => {
-        // console.log("more");
-        // setNextPageToken(data?.nextPageToken);
-        // }}
-        // hasMore={data?.nextPageToken ? true : false}
-        // scrollThreshold={0.95}
-        // >
-        <Box className="video-comments">
-            <p className="video-statistics__title">
-                {parseInt(commentCount).toLocaleString()} Comment(s)
-            </p>
+        <InfiniteScroll
+            dataLength={comments.length}
+            next={() => {
+                console.log("more");
+                setNextPageToken(data?.nextPageToken);
+            }}
+            hasMore={data?.nextPageToken ? true : false}
+            scrollThreshold={0.95}
+        >
+            <Box className="video-comments">
+                <p className="video-statistics__title">
+                    {parseInt(commentCount).toLocaleString()} Comment(s)
+                </p>
 
-            {/* вынести в отдельный компонент и добавить логику */}
-            <Box className="new-comment__input">
-                {/* аватар - аватар авторизированного пользователя */}
-                <Avatar bg="#E11D48" boxSize="35px" />
-                <Input
-                    variant="flushed"
-                    placeholder="Enter comment"
-                    focusBorderColor="#E11D48"
-                    color="white"
-                    value={newCommentValue}
-                    onChange={(e) => setNewCommentValue(e.target.value)}
-                    name="new-comment-input"
-                />
-            </Box>
-            {/* вынести в отдельный компонент и добавить логику */}
+                {/* вынести в отдельный компонент и добавить логику */}
+                <Box className="new-comment__input">
+                    {/* аватар - аватар авторизированного пользователя */}
+                    <Avatar bg="#E11D48" boxSize="35px" />
+                    <Input
+                        variant="flushed"
+                        placeholder="Enter comment"
+                        focusBorderColor="#E11D48"
+                        color="white"
+                        value={newCommentValue}
+                        onChange={(e) => setNewCommentValue(e.target.value)}
+                        name="new-comment-input"
+                    />
+                </Box>
+                {/* вынести в отдельный компонент и добавить логику */}
 
-            <Box className="video-comments__list">
-                {/* {comments.map((comment) => (
+                <Box className="video-comments__list">
+                    {comments.map((comment) => (
                         <Comment key={comment.id} comment={comment} />
-                    ))} */}
+                    ))}
+                </Box>
 
-                <Comment />
-                <Comment />
-                <Comment />
+                {isFetching && <Spinner style={{ margin: "20px auto 0px" }} />}
             </Box>
-
-            {isFetching && <Spinner style={{ margin: "20px auto 0px" }} />}
-        </Box>
-        // </InfiniteScroll>
+        </InfiniteScroll>
     );
 };
 
