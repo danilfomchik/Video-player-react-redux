@@ -17,14 +17,9 @@
         padding: 16px 20px;
     }
 
-    &__logo, &__user{
-        padding: 0px 20px;
-        min-width: 100px;
-    }
-
-    &__user{
-        // margin: 0 auto;
-        text-align: right;
+    &__logo{
+        margin: 0px 20px;
+        // min-width: 100px;
     }
 
     &__search{

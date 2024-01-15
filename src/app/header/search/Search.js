@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import qs from "query-string";
 
-import { Input, Box } from "@chakra-ui/react";
+import { Input, Box, Tooltip } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faXmark } from "@fortawesome/free-solid-svg-icons";
 
@@ -94,9 +94,16 @@ const Search = () => {
                         </>
                     )}
 
-                    <button className="fa-wrapper" type="submit">
-                        <FontAwesomeIcon icon={faMagnifyingGlass} />
-                    </button>
+                    <Tooltip
+                        margin="10px 0px 0px"
+                        label="Search"
+                        bg="#6B7280"
+                        color="#ffffff"
+                    >
+                        <button className="fa-wrapper" type="submit">
+                            <FontAwesomeIcon icon={faMagnifyingGlass} />
+                        </button>
+                    </Tooltip>
                 </Box>
 
                 <SuggestionsDropDown

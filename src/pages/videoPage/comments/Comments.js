@@ -23,13 +23,12 @@ const Comments = ({ videoId, commentCount }) => {
 
     const comments = data?.items || [];
 
-    console.log(comments);
+    // Релоад он фокус сделать для комментариев
 
     return (
         <InfiniteScroll
             dataLength={comments.length}
             next={() => {
-                console.log("more");
                 setNextPageToken(data?.nextPageToken);
             }}
             hasMore={data?.nextPageToken ? true : false}

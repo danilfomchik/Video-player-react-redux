@@ -1,0 +1,17 @@
+.log-in__btn{
+    padding: 5px 25px;
+    cursor: pointer;
+    display: flex;
+    text-align: center;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: #3ea6ff;
+    border-radius: 20px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+
+    &:hover{
+        background-color: #263850;
+        border-color: transparent;
+    }
+}

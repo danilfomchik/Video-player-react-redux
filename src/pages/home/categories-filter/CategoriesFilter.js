@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useTransition } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import qs from "query-string";
+import { Box, Tooltip } from "@chakra-ui/react";
 
 import useScrollOnDrag from "react-scroll-ondrag";
 
@@ -46,20 +47,23 @@ const CategoriesFilter = () => {
 
     return (
         <section>
-            <div className="categories-filter__wrapper">
-                <div
+            <Box className="categories-filter__wrapper">
+                <Box
                     className="categories-filter__inner"
                     ref={containerRef}
                     {...events}
                 >
-                    <div
-                        className={`categories-filter__item${
-                            currentCategory === "0" ? " active" : ""
-                        }`}
-                        onClick={() => onCategoryChange("0")}
-                    >
-                        <span>All</span>
-                    </div>
+                    <Tooltip label="All" bg="#6B7280" color="#ffffff">
+                        <Box
+                            className={`categories-filter__item${
+                                currentCategory === "0" ? " active" : ""
+                            }`}
+                            onClick={() => onCategoryChange("0")}
+                        >
+                            <span>All</span>
+                        </Box>
+                    </Tooltip>
+
                     {categories.map((category) => {
                         const {
                             id,
@@ -67,21 +71,29 @@ const CategoriesFilter = () => {
                         } = category;
 
                         return (
-                            <div
+                            <Tooltip
                                 key={id}
-                                className={`categories-filter__item${
-                                    currentCategory === category.id
-                                        ? " active"
-                                        : ""
-                                }`}
-                                onClick={() => onCategoryChange(category.id)}
+                                label={title}
+                                bg="#6B7280"
+                                color="#ffffff"
                             >
-                                <span>{title}</span>
-                            </div>
+                                <Box
+                                    className={`categories-filter__item${
+                                        currentCategory === category.id
+                                            ? " active"
+                                            : ""
+                                    }`}
+                                    onClick={() =>
+                                        onCategoryChange(category.id)
+                                    }
+                                >
+                                    <span>{title}</span>
+                                </Box>
+                            </Tooltip>
                         );
                     })}
-                </div>
-            </div>
+                </Box>
+            </Box>
         </section>
     );
 };

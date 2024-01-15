@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { Box } from "@chakra-ui/react";
+import { Box, useToast } from "@chakra-ui/react";
 
 import VideosListItem from "../videosListItem/VideosListItem";
 import VideoDescription from "../videosListItem/VideoDescription";

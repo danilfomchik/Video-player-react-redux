@@ -93,7 +93,7 @@ const Comment = ({ comment }) => {
                         </h2>
                         <AccordionPanel pb={4}>
                             {comment?.replies?.comments.map((reply) => (
-                                <Comment key={comment.id} comment={reply} />
+                                <Comment key={reply.id} comment={reply} />
                             ))}
                         </AccordionPanel>
                     </AccordionItem>

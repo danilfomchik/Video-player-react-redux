@@ -18,7 +18,7 @@ export const relatedVideosApi = createApi({
     endpoints: (builder) => ({
         getRelatedVideos: builder.query({
             query: ({ query, nextPageToken }) => {
-                return `/search?part=snippet&maxResults=16&type=video&q=${
+                return `/search?part=snippet&maxResults=8&type=video&q=${
                     query || ""
                 }&pageToken=${nextPageToken}&videoDuration=medium&key=${API_KEY}`;
             },

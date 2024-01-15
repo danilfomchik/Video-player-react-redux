@@ -43,17 +43,16 @@ const RelatedVideos = memo(({ query }) => {
 
             {isFetching && <Spinner style={{ margin: "20px auto 0px" }} />}
 
-            {data?.nextPageToken !== nextPageToken &&
-                relatedVideos.length > 0 && (
-                    <div
-                        className="activity__btn load-more__btn"
-                        onClick={() => {
-                            setNextPageToken(data.nextPageToken);
-                        }}
-                    >
-                        <button>LOAD MORE</button>
-                    </div>
-                )}
+            {data?.nextPageToken && data?.nextPageToken !== nextPageToken && (
+                <div
+                    className="activity__btn load-more__btn"
+                    onClick={() => {
+                        setNextPageToken(data.nextPageToken);
+                    }}
+                >
+                    <button>LOAD MORE</button>
+                </div>
+            )}
         </Box>
     );
 });

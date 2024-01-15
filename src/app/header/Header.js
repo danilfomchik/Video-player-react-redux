@@ -1,13 +1,23 @@
-import { Avatar, Input, Image, Box } from "@chakra-ui/react";
+import { Image, Box } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import Search from "./search/Search";
+import User from "./user/User";
+import LogInButton from "../../components/logInButton/LogInButton";
 
 import logo from "../../assets/icon.png";
 
 import "./header.scss";
 
 const Header = () => {
+    const isAuth = useSelector((state) => state.auth.isAuth);
+
+    // попробовать через апи геолокации получать код страны
+
+    // сделать компонент который будет показываться если пользователь не аутентифицировался
+    // в панеле слева если пользователь не вошел в аккаунт будет тоже писаться предупреждение, чтобы он вошел
+
     return (
         <>
             <header className="header">
@@ -23,9 +33,7 @@ const Header = () => {
                         </Link>
                     </Box>
                     <Search />
-                    <Box className="header__user">
-                        <Avatar bg="#E11D48" boxSize="35px" />
-                    </Box>
+                    {isAuth ? <User isAuth={isAuth} /> : <LogInButton />}
                 </Box>
             </header>
         </>

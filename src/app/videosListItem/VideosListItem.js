@@ -51,6 +51,10 @@ const VideosListItem = ({
         classList += ` ${type}-videos-list__item`;
     }
 
+    const previewSrc =
+        videoInfo?.items[0]?.snippet?.thumbnails?.maxres?.url ||
+        videoInfo?.items[0]?.snippet?.thumbnails?.medium?.url;
+
     return (
         <Box
             className={classList}
@@ -73,7 +77,7 @@ const VideosListItem = ({
             <Box className="videos-list__item-preview">
                 <VideoPreview
                     alt={videoInfo?.items[0]?.snippet?.title}
-                    src={videoInfo?.items[0]?.snippet?.thumbnails?.medium.url}
+                    src={previewSrc}
                     isLoading={isVideoInfoLoading}
                 />
                 <Text className="videos-list__item-duration">{_duration}</Text>

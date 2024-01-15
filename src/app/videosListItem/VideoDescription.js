@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Flex, Heading, Text, Avatar } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, Avatar, Tooltip } from "@chakra-ui/react";
 
 import VideoStatistics from "../../components/videoStatistics/VideoStatistics";
 import VideoDescriptionSkeleton from "../../components/skeleton/video/VideoDescriptionSkeleton";
@@ -15,15 +15,22 @@ const VideoDescription = ({ channelInfo, videoInfo, isLoading }) => {
                         id={channelInfo?.items[0]?.id}
                         className="videos-list__item-channel"
                     >
-                        <Avatar
-                            bg="#E11D48"
-                            boxSize="35px"
-                            name={channelInfo?.items[0]?.snippet?.title}
-                            src={
-                                channelInfo?.items[0]?.snippet?.thumbnails
-                                    ?.default?.url
-                            }
-                        />
+                        <Tooltip
+                            margin="10px 0px 0px"
+                            label={channelInfo?.items[0]?.snippet?.title}
+                            bg="#6B7280"
+                            color="#ffffff"
+                        >
+                            <Avatar
+                                bg="#E11D48"
+                                boxSize="35px"
+                                name={channelInfo?.items[0]?.snippet?.title}
+                                src={
+                                    channelInfo?.items[0]?.snippet?.thumbnails
+                                        ?.default?.url
+                                }
+                            />
+                        </Tooltip>
                     </Box>
                     <Box className="videos-list__item-info">
                         <Heading
@@ -33,12 +40,20 @@ const VideoDescription = ({ channelInfo, videoInfo, isLoading }) => {
                         >
                             {videoInfo?.items[0]?.snippet?.title}
                         </Heading>
-                        <Text
-                            className="videos-list__item_channel-name"
-                            fontSize="sm"
+                        <Tooltip
+                            margin="0px 0px 10px"
+                            label={channelInfo?.items[0]?.snippet?.title}
+                            placement="bottom-start"
+                            bg="#6B7280"
+                            color="#ffffff"
                         >
-                            {channelInfo?.items[0]?.snippet?.title}
-                        </Text>
+                            <Text
+                                className="videos-list__item_channel-name"
+                                fontSize="sm"
+                            >
+                                {channelInfo?.items[0]?.snippet?.title}
+                            </Text>
+                        </Tooltip>
 
                         <VideoStatistics
                             viewCount={

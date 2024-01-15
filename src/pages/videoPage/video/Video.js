@@ -1,11 +1,11 @@
-import { useEffect } from "react";
-import { Box } from "@chakra-ui/react";
-import { Avatar } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
+import { Box, Tooltip, Avatar } from "@chakra-ui/react";
 
+import { useFirebase } from "../../../app/useFirebase";
+
+import Channel from "./channel/Channel";
 import LikeSvg from "../LikeSvg";
 import SaveSvg from "./SaveSvg";
-
-import { API_KEY } from "../../../utils/constants";
 
 import "./video.scss";
 
@@ -15,16 +15,10 @@ const Video = ({ videoInfo, id }) => {
             statistics: { likeCount },
             snippet: { title: videoTitle },
         },
-        channel: {
-            snippet: {
-                title: channelTitle,
-                thumbnails: {
-                    default: { url: channelThumbnail },
-                },
-            },
-            statistics: { subscriberCount },
-        },
+        channel,
     } = videoInfo;
+
+    const isAuth = useSelector((state) => state.auth.isAuth);
 
     return (
         <Box className="video">
@@ -40,32 +34,7 @@ const Video = ({ videoInfo, id }) => {
             <h1 className="video-title">{videoTitle}</h1>
 
             <Box className="video-info">
-                <Box className="channel">
-                    <Box className="channel-info">
-                        <Avatar
-                            bg="#E11D48"
-                            boxSize="40px"
-                            name={channelTitle}
-                            src={channelThumbnail}
-                        />
-                        <Box className="channel-statistics">
-                            <span className="channel-title">
-                                {channelTitle}
-                            </span>
-                            <span className="channel-subs-count">
-                                {Intl.NumberFormat("en", {
-                                    notation: "compact",
-                                    maximumSignificantDigits: 5,
-                                }).format(+subscriberCount)}{" "}
-                                subscribers
-                            </span>
-                        </Box>
-                    </Box>
-
-                    <Box className="channel-subscribe__btn">
-                        <button>Subscribe</button>
-                    </Box>
-                </Box>
+                <Channel channel={channel} />
 
                 <Box className="video-actions">
                     <LikeSvg width={25} height={25} viewBox={`0 0 25 25`} />
@@ -76,10 +45,22 @@ const Video = ({ videoInfo, id }) => {
                         likes
                     </span>
                     <Box className="activity__btn add-to-library__btn">
-                        <button>
-                            <SaveSvg />
-                            <span>Add to playlist</span>
-                        </button>
+                        <Tooltip
+                            margin="0px 0px 10px"
+                            label="Add to playlist"
+                            bg="#6B7280"
+                            color="#ffffff"
+                            fontSize="15px"
+                        >
+                            <button
+                            // onClick={() =>
+                            //     onAddDataToPlaylist("new video", "likedVideos")
+                            // }
+                            >
+                                <SaveSvg />
+                                <span>Add to playlist</span>
+                            </button>
+                        </Tooltip>
                     </Box>
                 </Box>
             </Box>
