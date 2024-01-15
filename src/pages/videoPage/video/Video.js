@@ -18,8 +18,6 @@ const Video = ({ videoInfo, id }) => {
         channel,
     } = videoInfo;
 
-    const isAuth = useSelector((state) => state.auth.isAuth);
-
     return (
         <Box className="video">
             <Box className="video-player">

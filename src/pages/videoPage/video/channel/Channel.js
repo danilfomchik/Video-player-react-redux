@@ -2,7 +2,9 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Box, Tooltip, Avatar } from "@chakra-ui/react";
 
-import { useFirebase } from "../../../../app/useFirebase";
+import SubscribeBtnLayout from "./SubscribeBtnLayout";
+import withUnauthenticated from "../../withUnauthenticated";
+import withAuthenticated from "../../withAuthenticated";
 
 import "./channel.scss";
 
@@ -16,9 +18,12 @@ const Channel = ({ channel }) => {
         },
         statistics: { subscriberCount },
     } = channel;
-    const uid = useSelector((state) => state.auth.user.uid);
 
-    const { onAddDataToPlaylist } = useFirebase({ uid });
+    const isAuth = useSelector((state) => state.auth.isAuth);
+
+    // make stilization of buttons
+    const NotAuthentificatedBtn = withUnauthenticated(SubscribeBtnLayout);
+    const AuthentificatedBtn = withAuthenticated(SubscribeBtnLayout);
 
     return (
         <Box className="channel">
@@ -51,21 +56,16 @@ const Channel = ({ channel }) => {
                 </Box>
             </Box>
 
-            <Box className="channel-subscribe__btn">
-                <button
-                    onClick={() =>
-                        onAddDataToPlaylist(
-                            {
-                                channelTitle,
-                                channelThumbnail,
-                            },
-                            "subscriptions"
-                        )
-                    }
-                >
-                    Subscribe
-                </button>
-            </Box>
+            {isAuth ? (
+                <AuthentificatedBtn
+                    channel={{
+                        channelTitle,
+                        channelThumbnail,
+                    }}
+                />
+            ) : (
+                <NotAuthentificatedBtn />
+            )}
         </Box>
     );
 };

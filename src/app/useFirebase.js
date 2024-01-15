@@ -47,10 +47,6 @@ export const useFirebase = ({ uid }) => {
     };
 
     const getUserData = async (field) => {
-        // const docSnap = await getDoc(userRef);
-
-        // setData(...docSnap.data());
-
         onSnapshot(userRef, (doc) => {
             setData(doc.data()[field]);
 

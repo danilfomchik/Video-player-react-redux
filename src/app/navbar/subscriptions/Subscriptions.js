@@ -19,8 +19,8 @@ const Subscriptions = () => {
     return (
         <Box className="subscriptions-list">
             {/* {!isAuth ? <NotAuthorizedUser /> : null} */}
-            {subscriptions.map((channel) => (
-                <p>{channel.channelTitle}</p>
+            {subscriptions.map((channel, i) => (
+                <p key={i}>{channel.channelTitle}</p>
             ))}
         </Box>
     );
