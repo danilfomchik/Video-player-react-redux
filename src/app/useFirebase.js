@@ -17,13 +17,6 @@ import {
     getDoc,
 } from "firebase/firestore";
 
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// ПРОВЕРЯТЬ ЧТО ПОЛЬЗОВАТЕЛЬ ВОШЕЛ В АККАУНТ, ТОЛЬКО ТОГДА ПОЗВОЛЯТЬ ЕМУ ВЫПОЛНЯТЬ ДЕЙСТВИЯ
-// ЕСЛИ ПОЛЬЗОВАТЕЛЬ НЕ ВОШЕЛ В АККАУНТ, ПОКАЗЫВАТЬ СООБЩЕНИЕ С ПРИЗЫВОМ ВОЙТИ
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-// как вариант, сделать на подобии с юзером, т.е если аутентифицырован - показывать настоящий компонент, если нет - заглушку
-
 export const useFirebase = ({ uid }) => {
     // uid - id of a document in database
     const [data, setData] = useState([]);
@@ -46,11 +39,18 @@ export const useFirebase = ({ uid }) => {
         });
     };
 
+    // calls when we delete video from playlist
+    const onDeleteDataFromPlaylist = async (data, playlistName) => {
+        await updateDoc(userRef, {
+            [playlistName]: arrayRemove(data),
+        });
+    };
+
     const getUserData = async (field) => {
         onSnapshot(userRef, (doc) => {
             setData(doc.data()[field]);
 
-            console.log("Current data: ", doc.data()[field]);
+            // console.log("Current data: ", doc.data()[field]);
         });
     };
 
@@ -84,21 +84,6 @@ export const useFirebase = ({ uid }) => {
     // если обновлять без вложеной нотации будет переписываться весь обьект
     // };
 
-    // calls when we delete video from playlist
-    // const deleteVideo = async (id, videoIndex, videosArray) => {
-    //     // creates instance of a document
-    //     const userDoc = doc(db, "users", id);
-
-    //     // updated field
-    //     const newVideosArray = {
-    //         likedVideos: videosArray.filter((video, index) => {
-    //             return videoIndex !== index;
-    //         }),
-    //     };
-
-    //     await updateDoc(userDoc, newVideosArray);
-    // };
-
     // calls when we add video from playlist
     // const addVideo = async (id, videosArray, newVideo) => {
     //     // creates instance of a document
@@ -115,6 +100,7 @@ export const useFirebase = ({ uid }) => {
     return {
         data,
         onAddUserToDatabase,
+        onDeleteDataFromPlaylist,
         onAddDataToPlaylist,
         getUserData,
     };

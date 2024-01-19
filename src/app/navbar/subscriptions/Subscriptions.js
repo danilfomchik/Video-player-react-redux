@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Box, Avatar, Icon, IconButton, CheckIcon } from "@chakra-ui/react";
+import { SmallCloseIcon } from "@chakra-ui/icons";
+
 import LogInButton from "../../../components/logInButton/LogInButton";
-import { Box } from "@chakra-ui/react";
 
 import { useFirebase } from "../../useFirebase";
 
@@ -10,7 +12,11 @@ import "./subscriptions.scss";
 const Subscriptions = () => {
     const uid = useSelector((state) => state.auth.user.uid);
 
-    const { data: subscriptions = [], getUserData } = useFirebase({ uid });
+    const {
+        data: subscriptions = [],
+        getUserData,
+        onDeleteDataFromPlaylist,
+    } = useFirebase({ uid });
 
     useEffect(() => {
         getUserData("subscriptions");
@@ -18,24 +24,31 @@ const Subscriptions = () => {
 
     return (
         <Box className="subscriptions-list">
-            {/* {!isAuth ? <NotAuthorizedUser /> : null} */}
+            <h3 className="subscriptions__title">Subscriptions</h3>
             {subscriptions.map((channel, i) => (
-                <p key={i}>{channel.channelTitle}</p>
+                <div className="subscription nav-bar__item" key={channel.id}>
+                    <Avatar
+                        bg="#E11D48"
+                        boxSize="20px"
+                        name={channel.channelTitle}
+                        src={channel.channelThumbnail}
+                    />
+                    <p className="subscription__title">
+                        {channel.channelTitle}
+                    </p>
+                    {/* <Icon as={SmallCloseIcon} /> */}
+                    <IconButton
+                        className="unsubscribe-icon"
+                        aria-label="Unsubscribe"
+                        icon={<SmallCloseIcon />}
+                        onClick={() =>
+                            onDeleteDataFromPlaylist(channel, "subscriptions")
+                        }
+                    />
+                </div>
             ))}
         </Box>
     );
 };
 
 export default Subscriptions;
-
-// сделать компонентом в который передавать свг, тайтл, описание и кнопку
-const NotAuthorizedUser = () => {
-    return (
-        <Box className="not-authorized-user">
-            <p>
-                Sign in to rate videos, add comments and subscribe to channels.
-            </p>
-            <LogInButton style={{ margin: "10px 0px 0px" }} />
-        </Box>
-    );
-};

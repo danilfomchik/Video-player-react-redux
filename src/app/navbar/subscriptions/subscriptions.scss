@@ -1,6 +1,51 @@
-.subscriptions-list{
-    margin: 10px 5px 0px;
-    padding: 10px 10px 0px;
-    border-top: 1px solid #ffffff75;
-    color: #D1D5DB;
+@import "/src/style/mixins.scss";
+
+.subscriptions__title {
+    padding: 10px 15px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.subscriptions-list {
+    padding: 10px 0px 0px;
+    color: #d1d5db;
+}
+
+.subscription {
+    position: relative;
+
+    .chakra-avatar {
+        margin: 0px 15px 0px 0px;
+    }
+
+    &__title {
+        padding: 0px 10px 0px 0px;
+        @include ellipsis();
+    }
+}
+
+.not-authorized-user {
+    color: #d1d5db;
+    padding: 10px 15px;
+}
+
+.subscription button.unsubscribe-icon {
+    position: absolute;
+    right: 0;
+    height: auto;
+    width: auto;
+    background: none;
+
+    svg {
+        border-radius: 3px;
+        margin: 0;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    }
+
+    &:hover {
+        background: none;
+    }
 }

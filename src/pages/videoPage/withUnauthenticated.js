@@ -18,13 +18,13 @@ function withUnauthenticated(WrappedComponent) {
         return (
             <Popover placement="bottom">
                 <PopoverTrigger>
-                    <Button className="popover-trigger">
+                    <Button className="popover-trigger channel-subscribe__btn">
                         <WrappedComponent />
                     </Button>
                 </PopoverTrigger>
                 <Portal>
                     <PopoverContent>
-                        <PopoverArrow />
+                        <PopoverArrow backgroundColor={"#282828"} />
                         <PopoverHeader>
                             <Box>
                                 <p>to subscribe you need to be authorized</p>

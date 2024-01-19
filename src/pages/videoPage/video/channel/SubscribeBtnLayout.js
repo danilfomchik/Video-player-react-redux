@@ -4,17 +4,10 @@ import { Box } from "@chakra-ui/react";
 
 import { useFirebase } from "../../../../app/useFirebase";
 
-const SubscribeBtnLayout = ({ channel }) => {
-    // const uid = useSelector((state) => state.auth.user.uid);
-    // const { onAddDataToPlaylist } = useFirebase({ uid });
-
+const SubscribeBtnLayout = ({ isSubscribed }) => {
     return (
-        <Box className="channel-subscribe__btn">
-            {/* <button
-                onClick={() => onAddDataToPlaylist(channel, "subscriptions")}
-            > */}
-            Subscribe
-            {/* </button> */}
+        <Box>
+            {isSubscribed ? <span>Subscribed</span> : <span>Subscribe</span>}
         </Box>
     );
 };

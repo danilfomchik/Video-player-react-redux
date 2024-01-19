@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Box, Tooltip, Avatar } from "@chakra-ui/react";
 
@@ -10,6 +10,7 @@ import "./channel.scss";
 
 const Channel = ({ channel }) => {
     const {
+        id: channelId,
         snippet: {
             title: channelTitle,
             thumbnails: {
@@ -21,7 +22,6 @@ const Channel = ({ channel }) => {
 
     const isAuth = useSelector((state) => state.auth.isAuth);
 
-    // make stilization of buttons
     const NotAuthentificatedBtn = withUnauthenticated(SubscribeBtnLayout);
     const AuthentificatedBtn = withAuthenticated(SubscribeBtnLayout);
 
@@ -59,6 +59,7 @@ const Channel = ({ channel }) => {
             {isAuth ? (
                 <AuthentificatedBtn
                     channel={{
+                        id: channelId,
                         channelTitle,
                         channelThumbnail,
                     }}

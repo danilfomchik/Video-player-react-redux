@@ -1,54 +1,52 @@
-.chakra-portal .chakra-popover{
-    &__content{
+.chakra-portal .chakra-popover {
+    &__content {
         margin: 20px 0px 0px;
         background: #282828;
         color: #ffffff;
         border: 1px solid #ffffff33;
     }
 
-    &__popper{
+    &__popper {
         z-index: 100;
     }
 
-    &__header{
+    &__header {
         display: flex;
         flex-direction: row;
         align-items: flex-start;
         justify-content: flex-start;
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 
-        .user-info{
+        .user-info {
             padding: 0px 0px 0px 15px;
         }
     }
 
-    &__body{
+    &__body {
         display: flex;
         align-items: center;
         flex-direction: row;
         cursor: pointer;
 
-        span{
+        span {
             padding: 0px 0px 0px 10px;
         }
     }
 }
 
-.header__wrapper{
-    .popover-trigger{
+.header__wrapper {
+    .popover-trigger {
         padding: 0;
         background: none;
         margin: 0px 20px;
-    
-        &:hover{
+
+        &:hover {
             background: none;
         }
     }
-
-    
 }
 
-.header__user{
+.header__user {
     margin: 0px 0px;
     // min-width: 100px;
 }

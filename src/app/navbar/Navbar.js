@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
 
 import Subscriptions from "./subscriptions/Subscriptions";
+import NotAuthorizedUser from "./subscriptions/NotAuthorizedUser";
 import navBarItems from "./navBarItems";
 
 import "./navbar.scss";
@@ -53,7 +54,9 @@ const Navbar = () => {
                 )}
             </Box>
 
-            {isAuth ? <Subscriptions /> : <p>NotAuthorizedUser component</p>}
+            <Box className="divider"></Box>
+
+            {isAuth ? <Subscriptions /> : <NotAuthorizedUser />}
         </Box>
     );
 };

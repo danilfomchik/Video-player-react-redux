@@ -1,6 +1,6 @@
-@import '/src/style/variables.scss';
+@import "/src/style/variables.scss";
 
-.aside-bar{
+.aside-bar {
     position: fixed;
     z-index: 100;
     height: 100%;
@@ -15,34 +15,39 @@
     padding: 30px 10px 0px;
     background: $main-bg-color;
 
-
-    .nav-bar{
-        &__item{
+    .nav-bar {
+        &__item {
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
+            align-items: center;
             text-align: center;
             color: $nav-item-color;
             border-radius: 15px;
             padding: 10px 15px;
             cursor: pointer;
-    
-            &_active{
+
+            &_active {
                 pointer-events: none;
                 background: $active-item-bg;
                 color: $nav-active-item-color;
             }
-    
-            &:hover{
+
+            &:hover {
                 background: $active-item-bg;
             }
-    
-            svg{
+
+            svg {
                 color: $nav-item-color;
                 fill: currentColor;
                 stroke: none;
                 margin: 0 15px 0px 0px;
             }
         }
+    }
+
+    .divider {
+        margin: 10px 0px 0px;
+        border-top: 1px solid #ffffff75;
     }
 }
